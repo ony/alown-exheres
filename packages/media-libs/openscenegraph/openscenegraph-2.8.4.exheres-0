@@ -1,0 +1,23 @@
+# Copyright 2011 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+require cmake
+
+SUMMARY="A high performance 3D graphics toolkit"
+HOMEPAGE="http://wwww.openscenegraph.org/"
+DOWNLOADS="http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-2.8.4/source/OpenSceneGraph-${PV}.zip"
+
+LICENCES="LGPL"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="tiff jpeg png ttf"
+
+DEPENDENCIES="
+    build+run:
+        tiff? media-libs/tiff
+        jpeg? media-libs/jpeg
+        png? media-libs/libpng
+        ttf? media-libs/freetype
+"
+
+BUGS_TO="ali@lown.me.uk"
