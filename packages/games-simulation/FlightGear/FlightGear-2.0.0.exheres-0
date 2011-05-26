@@ -16,6 +16,7 @@ DEPENDENCIES="
     build+run:
         x11-dri/freeglut
         media-libs/openal
+        media-libs/freealut
         dev-games/OpenSceneGraph
         dev-games/SimGear
         media-libs/plib
