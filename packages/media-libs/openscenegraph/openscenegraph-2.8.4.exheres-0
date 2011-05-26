@@ -10,14 +10,14 @@ DOWNLOADS="http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGrap
 LICENCES="LGPL"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS="tiff jpeg png ttf"
+MYOPTIONS=""
 
 DEPENDENCIES="
     build+run:
-        tiff? media-libs/tiff
-        jpeg? media-libs/jpeg
-        png? media-libs/libpng
-        ttf? media-libs/freetype
+        media-libs/tiff
+        media-libs/jpeg
+        media-libs/libpng
+        media-libs/freetype
 "
 
 BUGS_TO="ali@lown.me.uk"
