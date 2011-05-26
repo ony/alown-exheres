@@ -6,7 +6,6 @@ require sourceforge
 
 SUMMARY="An A/52 (AC-3 or Dolby Digital) encoder"
 HOMEPAGE="http://aften.sourceforge.net/"
-DOWNLOADS=""
 
 LICENCES="LGPL-3 BSD"
 SLOT="0"
