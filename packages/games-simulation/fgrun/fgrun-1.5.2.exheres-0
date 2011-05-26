@@ -1,7 +1,6 @@
 # Copyright 2011 Ali Lown
 # Distributed under the terms of the GNU General Public License v2
 
-require cmake
 require sourceforge [ suffix=tar.gz ]
 
 SUMMARY="A graphical frontend to run FlightGear from"
@@ -16,6 +15,7 @@ DEPENDENCIES="
     build:
     build+run:
         games-simulation/FlightGear
+        x11-libs/fltk[gl]
 "
 
 BUGS_TO="alipc-gentoo"
