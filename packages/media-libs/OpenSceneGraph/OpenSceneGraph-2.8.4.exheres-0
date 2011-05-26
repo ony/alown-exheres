@@ -10,7 +10,7 @@ DOWNLOADS="http://www.openscenegraph.org/downloads/stable_releases/${PNV}/source
 LICENCES="LGPL"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS=""
+MYOPTIONS="openal"
 
 DEPENDENCIES="
     build+run:
@@ -20,6 +20,7 @@ DEPENDENCIES="
         media-libs/freetype
         x11-libs/libSM
         x11-libs/libXext
+        openal? (media-libs/openal)
 "
 
 BUGS_TO="ali@lown.me.uk"
