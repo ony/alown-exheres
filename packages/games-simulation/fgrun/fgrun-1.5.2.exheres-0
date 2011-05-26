@@ -1,6 +1,7 @@
 # Copyright 2011 Ali Lown
 # Distributed under the terms of the GNU General Public License v2
 
+require cmake
 require sourceforge [ suffix=tar.gz ]
 
 SUMMARY="A graphical frontend to run FlightGear from"
