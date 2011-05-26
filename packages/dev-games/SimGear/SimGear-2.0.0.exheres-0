@@ -23,8 +23,8 @@ DEPENDENCIES="
 
 BUGS_TO="ali@lown.me.uk"
 
+RESTRICT=test #because make check is broken in 2.0.0 revision
+
 DEFAULT_SRC_CONFIGURE_PARAMS=( )
 DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
 DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
-
-
