@@ -16,6 +16,7 @@ DEPENDENCIES="
     build:
     build+run:
         games-simulation/FlightGear
+        x11-libs/fltk
 "
 
 BUGS_TO="alipc-gentoo"
