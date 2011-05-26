@@ -1,7 +1,7 @@
 # Copyright 2011 Ali Lown
 # Distributed under the terms of the GNU General Public License v2
 
-require sourceforge [suffix=tar.gz]
+require sourceforge [ suffix=tar.gz ]
 
 SUMMARY="A suite of portable game libraries for linux"
 HOMEPAGE="http://plib.sourceforge.net"
