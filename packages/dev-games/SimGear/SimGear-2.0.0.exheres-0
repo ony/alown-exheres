@@ -17,6 +17,7 @@ DEPENDENCIES="
         dev-games/OpenSceneGraph
         media-libs/openal
         media-libs/plib
+        media-libs/freealut
         dev-libs/boost
 "
 
