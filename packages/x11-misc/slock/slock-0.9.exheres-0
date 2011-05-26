@@ -3,7 +3,7 @@
 
 SUMMARY="Simple X display locker"
 HOMEPAGE="http://tools.suckless.org/slock"
-DOWNLOADS="http://dl.suckless.org/tools$/${PNV}.tar.gz"
+DOWNLOADS="http://dl.suckless.org/tools/${PNV}.tar.gz"
 
 LICENCES="MIT"
 SLOT="0"
