@@ -1,0 +1,27 @@
+# Copyright 2011 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="A vim inspired filemanager for the console"
+HOMEPAGE="http://nongnu.org/ranger/"
+DOWNLOADS="http://git.savannah.gnu.org/cgit/ranger.git/snapshot/ranger-1.4.3.tar.gz"
+
+LICENCES="GPL-3"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+    build+run:
+        sys-apps/file
+        dev-lang/python
+        sys-apps/less
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+
+
