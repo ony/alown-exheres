@@ -3,7 +3,7 @@
 
 SUMMARY="SILLY Image Loader library for CEGUI"
 HOMEPAGE="http://www.cegui.org.uk"
-DOWNLOADS="mirror:/sourceforge/crayzedsgui/SILLY-${PV}.tar.gz"
+DOWNLOADS="mirror://sourceforge/crayzedsgui/SILLY-${PV}.tar.gz"
 
 LICENCES="LGPL-2"
 SLOT="0"
