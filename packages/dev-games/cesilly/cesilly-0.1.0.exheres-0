@@ -1,9 +1,9 @@
 # Copyright 2011 Ali Lown
 # Distributed under the terms of the GNU General Public License v2
 
-SUMMARY="Layout editor for CEGUI"
+SUMMARY="SILLY Image Loader library for CEGUI"
 HOMEPAGE="http://www.cegui.org.uk"
-DOWNLOADS="mirror://sourceforge/crayzedsgui/CELayoutEditor-${PV}.tar.gz"
+DOWNLOADS="mirror:/sourceforge/crayzedsgui/SILLY-${PV}.tar.gz"
 
 LICENCES="LGPL-2"
 SLOT="0"
@@ -13,14 +13,11 @@ MYOPTIONS=""
 DEPENDENCIES="
     build:
     build+run:
-        dev-games/cegui
-        x11-libs/wxWidgets:2.8
-        dev-games/cesilly
 "
 
-BUGS_TO="ali@lown.me.uk"
+WORK="${WORKBASE}/SILLY-${PV}"
 
-WORK="${WORKBASE}/CELayoutEditor-${PV}"
+BUGS_TO="ali@lown.me.uk"
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( )
 DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
