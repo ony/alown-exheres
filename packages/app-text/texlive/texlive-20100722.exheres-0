@@ -1,0 +1,61 @@
+# Copyright 2010 Ingmar Vanhassel
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="The TeXlive distribution"
+DESCRIPTION="
+The current latest version of texlive (currently in late testing stages)
+"
+HOMEPAGE="http://tug.org/texlive"
+DOWNLOADS="ftp://tug.org/historic/systems/texlive/${PV:0:4}/${PNV}-source.tar.xz"
+
+REMOTE_IDS="freshmeat:${PN}"
+
+LICENCES="LPPL GPLv2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+RESTRICT="test"
+
+DEPENDENCIES="
+    build:
+        app-arch/xz
+        sys-apps/ed
+        sys-devel/bison
+        sys-devel/flex
+    build+run:
+        media-libs/freetype:2 [[ note = [ --with-system-freetype2 ] ]]
+        media-libs/gd [[ note = [ --with-system-gd ] ]]
+        media-libs/libpng [[ note = [ --with-system-libpng ] ]]
+        media-libs/t1lib [[ note = [ --with-system-t1lib ] ]]
+"
+
+WORK="${WORKBASE}/${PNV}-build/"
+ECONF_SOURCE="${WORKBASE}/${PNV}-source/"
+
+src_unpack() {
+    default
+    edo mkdir "${WORK}"
+}
+
+src_configure() {
+    local myconf=()
+
+    myconf=(
+        --with-tex-banner="TeX Live ${PV:0:4} - Exherbo ${PNVR}"
+        # If enabled, build for a TeX Live binary distribution as shipped by the TeX user groups
+        --disable-native-texlive-build
+        # Don't install executables, binaries into platform dependent subdirectories of bindir, libdir
+        --disable-multiplatform
+        --enable-shared
+        --hates=docdir
+        # Terminate the build if a requested feature can't be enabled due to missing dependencies
+        # FIXME --disable-missing
+
+        --with-system-{freetype2,gd,libpng,t1lib,zlib}
+        --without-system-{freetype,graphite,kpathsea,teckit,xpdf}
+    )
+
+    econf "${myconf[@]}"
+}
+
