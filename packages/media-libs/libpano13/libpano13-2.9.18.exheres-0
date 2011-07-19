@@ -1,0 +1,25 @@
+# Copyright 2010 Xavier Barrachina <xabarci@doctor.upv.es>
+# Distributed under the terms of the GNU General Public License v2
+
+require sourceforge [ suffix=tar.gz project=panotools ]
+
+MY_PV=${PV:0:6}
+
+SUMMARY="Open source graphical user interface application that aims to provide a workflow for HDR imaging."
+
+LICENCES="GPL"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        media-libs/jpeg
+        media-libs/libpng
+        media-libs/tiff
+"
+
+WORK=${WORKBASE}/${PN}-${MY_PV}
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( --hates=docdir )
+
