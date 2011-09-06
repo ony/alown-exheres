@@ -18,7 +18,7 @@ DEPENDENCIES="
         media-libs/openal
         media-libs/freealut
         dev-games/OpenSceneGraph
-        >=dev-games/SimGear-2.4.0
+        dev-games/SimGear[>=2.4.0]
         media-libs/plib
 
 "
