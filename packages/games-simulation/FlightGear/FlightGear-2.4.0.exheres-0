@@ -19,7 +19,7 @@ DEPENDENCIES="
         media-libs/freealut
         dev-games/OpenSceneGraph
         !dev-games/SimGear [[
-            description = [New naming system. Remove old SimGear package manually ]
+            description = [ New naming system. Remove old SimGear package manually ]
             resolution = uninstall-blocked-before
             ]]
         dev-games/simgear[>=2.4.0]
