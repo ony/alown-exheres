@@ -4,7 +4,7 @@
 SUMMARY="A set of libraries to be used for building simulations, games and visualization
 applications"
 HOMEPAGE="http://simgear.sourceforge.net"
-DOWNLOADS="ftp://mirrors.ibiblio.org/pub/mirrors/simgear/ftp/Source/SimGear-${PV}.tar.gz"
+DOWNLOADS="ftp://mirrors.ibiblio.org/pub/mirrors/simgear/ftp/Source/simgear-${PV}.tar.bz2"
 
 LICENCES="LGPL-2"
 SLOT="0"
