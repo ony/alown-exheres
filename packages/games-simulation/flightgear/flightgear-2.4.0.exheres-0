@@ -3,7 +3,7 @@
 
 SUMMARY="Free, open source, multiplatform flight simulator"
 HOMEPAGE="http://www.flightgear.org/"
-DOWNLOADS="ftp://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Source/FlightGear-${PV}.tar.gz"
+DOWNLOADS="ftp://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Source/flightgear-${PV}.tar.gz"
 
 LICENCES="GPL"
 SLOT="0"
