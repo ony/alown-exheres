@@ -1,0 +1,32 @@
+# Copyright 2011 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Free, open source, multiplatform flight simulator"
+HOMEPAGE="http://www.flightgear.org/"
+DOWNLOADS="ftp://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Source/FlightGear-${PV}.tar.gz"
+
+LICENCES="GPL"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        dev-libs/boost
+    build+run:
+        x11-dri/freeglut
+        media-libs/openal
+        media-libs/freealut
+        dev-games/OpenSceneGraph
+        dev-games/SimGear
+        media-libs/plib
+
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+
+
