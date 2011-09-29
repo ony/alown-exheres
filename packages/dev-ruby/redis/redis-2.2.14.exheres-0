@@ -16,6 +16,8 @@ DEPENDENCIES="
     build+run:
 "
 
+RESTRICT=test #broken because of sydbox
+
 BUGS_TO="ali@lown.me.uk"
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( )
