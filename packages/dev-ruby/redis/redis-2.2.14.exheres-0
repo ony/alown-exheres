@@ -16,9 +16,14 @@ DEPENDENCIES="
     build+run:
 "
 
-RESTRICT=test #broken because of sydbox
+RESTRICT=test #broken by sydbox
 
 BUGS_TO="ali@lown.me.uk"
+
+src_install() {
+    esandbox disable
+    default
+}
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( )
 DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
