@@ -1,0 +1,25 @@
+# Copyright 2011 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="GNU Typing tutor"
+HOMEPAGE="http://www.gnu.org/s/gtypist/"
+DOWNLOADS="http://ftp.gnu.org/gnu/gtypist/${PNV}.tar.gz"
+
+LICENCES="GPL"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+    build+run:
+    sys-libs/ncurses
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+
+
