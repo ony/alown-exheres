@@ -1,0 +1,24 @@
+# Copyright 2011 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Typespeed typing game"
+DESCRIPTION="Type words that are flying by from left to right as fast as you can"
+HOMEPAGE="http://typespeed.sourceforge.net"
+DOWNLOADS="http://typespeed.sourceforge.net/typespeed-${PV}.tar.gz"
+
+SLOT="0"
+PLATFORMS="~amd64"
+
+DEPENDENCIES="
+    build:
+    build+run:
+        sys-libs/ncurses
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+
+
