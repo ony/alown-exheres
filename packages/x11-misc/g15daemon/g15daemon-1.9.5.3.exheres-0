@@ -6,7 +6,7 @@ require toolchain-funcs
 SUMMARY="G15 Daemon"
 DESCRIPTION=""
 HOMEPAGE="http://www.g15tools.com/"
-DOWNLOADS="mirror://sourceforge/g15tools/${PNV}.tar.bz2"
+DOWNLOADS="mirror://sourceforge/G15Daemon/${PNV}.tar.bz2"
 
 LICENCES="GPL-2"
 SLOT="1"
