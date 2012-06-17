@@ -3,7 +3,7 @@
 
 require toolchain-funcs
 
-SUMMARY="G15 Keyboard Common Libraries"
+SUMMARY="G15 Keyboard Rendering Common Libraries"
 DESCRIPTION=""
 HOMEPAGE="http://www.g15tools.com/"
 DOWNLOADS="mirror://sourceforge/g15tools/${PNV}.tar.bz2"
@@ -17,8 +17,9 @@ BUGS_TO="ali@lown.me.uk"
 
 DEPENDENCIES="
     build:
+        x11-libs/libg15
+        media-libs/freetype
     build+run:
-        dev-libs/libusb:0.1
 "
 
 src_configure() {
