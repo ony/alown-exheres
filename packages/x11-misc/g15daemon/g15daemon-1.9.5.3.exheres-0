@@ -1,0 +1,32 @@
+# Copyright 2012 Ali Lown <ali@lown.me.uk>
+# Distributed under the terms of the GNU General Public License v2
+
+require toolchain-funcs
+
+SUMMARY="G15 Daemon"
+DESCRIPTION=""
+HOMEPAGE="http://www.g15tools.com/"
+DOWNLOADS="mirror://sourceforge/g15tools/${PNV}.tar.bz2"
+
+LICENCES="GPL-2"
+SLOT="1"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS=""
+
+BUGS_TO="ali@lown.me.uk"
+
+DEPENDENCIES="
+    build:
+    build+run:
+        x11-libs/libg15
+        x11-libs/libg15render
+"
+
+src_configure() {
+    default
+}
+
+src_install() {
+    default
+}
+
