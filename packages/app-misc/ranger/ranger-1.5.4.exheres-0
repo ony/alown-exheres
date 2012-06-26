@@ -3,7 +3,7 @@
 
 SUMMARY="A vim inspired filemanager for the console"
 HOMEPAGE="http://nongnu.org/ranger/"
-DOWNLOADS="http://git.savannah.gnu.org/cgit/ranger.git/snapshot/ranger-1.4.3.tar.gz"
+DOWNLOADS="http://git.savannah.gnu.org/cgit/ranger.git/snapshot/ranger-${PV}.tar.gz"
 
 LICENCES="GPL-3"
 SLOT="0"
