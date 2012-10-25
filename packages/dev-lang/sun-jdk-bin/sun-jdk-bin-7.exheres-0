@@ -18,6 +18,7 @@ MYOPTIONS=""
 DEPENDENCIES="
     build:
     build+run:
+        !dev-lang/icedtea7:1.7
 "
 
 BUGS_TO="ali@lown.me.uk"
