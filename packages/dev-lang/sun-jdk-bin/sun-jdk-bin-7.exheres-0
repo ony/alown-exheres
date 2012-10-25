@@ -34,12 +34,24 @@ src_install() {
     dodir "${java_home}"
 
     edo cd "${build_target}"
+
+    echo "Put into:"
+    echo $java_home
+    echo "---"
+
+    echo "Instinto"
     insinto "${java_home}"
+    echo "Finshed insinto"
     doins -r bin include jre lib man
 
+    echo "CHModd"
     edo chmod 755 "${IMAGE}/${java_home}"/{,jre/}bin/*
 
+    echo "Finished insing"
+
     linkify_redundant_jdk_bins
+    echo "Finished linking"
     do_jdk_alternatives
+    echo "Finished setup alternatives"
 }
 
