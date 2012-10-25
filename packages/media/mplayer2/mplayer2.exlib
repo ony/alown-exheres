@@ -209,7 +209,6 @@ src_configure() {
         $(my_option_enable alsa)                        # ALSA audio output
         --disable-ossaudio                               # OSSv4 audio output
         $(my_option_enable pulseaudio pulse)            # Pulseaudio audio output
-        --enable-jack
         --disable-nas                                   # NAS audio output
         --disable-rsound                                # RSound audio output
         --disable-sunaudio                              # Sun audio output
