@@ -32,5 +32,14 @@ WORK="${WORKBASE}/jdk1.7.0_09"
 src_install() {
     local java_home="/usr/${LIBDIR}/${PN}"
     dodir "${java_home}"
+
+    edo cd "${build_target}"
+    insinto "${java_home}"
+    doins -r bin include jre lib man
+
+    edo chmod 755 "${IMAGE}/${java_home}"/{,jre/}bin/*
+
+    linkify_redundant_jdk_bins
+    do_jdk_alternatives
 }
 
