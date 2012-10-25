@@ -1,6 +1,7 @@
 # Copyright 2012 Ali Lwon
 # Distributed under the terms of the GNU General Public License v2
 
+SLOT="1.7"
 require java [ virtual_jdk_and_jre_deps=false ] java-jdk
 
 SUMMARY="Oracle Binary JDK"
@@ -10,7 +11,6 @@ Installs the Oracle provided JDK binaries
 HOMEPAGE="http://www.oracle.com/technetwork/java/index.html"
 DOWNLOADS="http://download.oracle.com/otn-pub/java/jdk/7u9-b05/jdk-7u9-linux-x64.tar.gz"
 
-SLOT="1.7"
 LICENCES="Oracle"
 PLATFORMS="~amd64"
 MYOPTIONS=""
