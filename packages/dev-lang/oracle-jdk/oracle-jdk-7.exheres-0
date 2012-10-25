@@ -1,7 +1,7 @@
 # Copyright 2012 Ali Lwon
 # Distributed under the terms of the GNU General Public License v2
 
-require java [virtual_jdk_and_jre_deps=false] java-jdk
+require java [ virtual_jdk_and_jre_deps=false ] java-jdk
 
 SUMMARY="Oracle Binary JDK"
 DESCRIPTION="
