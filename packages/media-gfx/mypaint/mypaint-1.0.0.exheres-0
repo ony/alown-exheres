@@ -29,6 +29,13 @@ src_prepare() {
     patch -p0 < "${FILES}/${PNV}-config.patch"
 }
 
+src_install() {
+    default_src_install
+
+    #TODO: don't hard-code it
+    gtk-update-icon-cache --ignore-theme-index /usr/share/icons/hicolor
+}
+
 SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
 )
