@@ -17,8 +17,8 @@ DEPENDENCIES="
     build:
     build+run:
         dev-lang/swig
-        dev-util/pkgconfig
-        dev-python/pygtk
+        dev-util/pkg-config
+        gnome-bindings/pygtk
         dev-python/numpy
         dev-python/pycairo
 "
