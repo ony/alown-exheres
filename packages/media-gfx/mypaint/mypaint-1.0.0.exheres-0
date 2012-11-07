@@ -29,3 +29,8 @@ SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
     install_sandbox="${IMAGE}"
 )
+
+SCONS_SRC_INSTALL_PARAMS=(
+    prefix="/usr"
+    install_sandbox="${IMAGE}"
+)
