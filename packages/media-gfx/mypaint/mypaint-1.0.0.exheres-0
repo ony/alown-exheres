@@ -1,7 +1,7 @@
 # Copyright 2012 Ali Lown
 # Distributed under the terms of the GNU General Public License v2
 
-require scons
+require scons gtk-icon-cache
 
 SUMMARY="mypaint graphics package"
 DESCRIPTION="fast and easy graphics application for digital painters"
@@ -29,11 +29,12 @@ src_prepare() {
     patch -p0 < "${FILES}/${PNV}-config.patch"
 }
 
-src_install() {
-    default_src_install
+pkg_postinst() {
+    gtk-icon-cache_pkg_postinst
+}
 
-    #TODO: don't hard-code it
-    gtk-update-icon-cache --ignore-theme-index /usr/share/icons/hicolor
+pkg_postrm() {
+    gtk-icon-cache_pkg_postrm
 }
 
 SCONS_SRC_COMPILE_PARAMS=(
