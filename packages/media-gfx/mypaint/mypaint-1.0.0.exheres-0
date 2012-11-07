@@ -26,11 +26,6 @@ DEPENDENCIES="
 BUGS_TO="ali@lown.me.uk"
 
 SCONS_SRC_COMPILE_PARAMS=(
-    BINDIR="/usr/bin"
-    INSTALLDIR="/usr/share"
-)
-
-SCONS_SRC_INSTALL_PARAMS=(
-    BINDIR="${IMAGE}/usr/bin"
-    INSTALLDIR="${IMAGE}/usr/share/"
+    prefix="/usr"
+    install_sandbox="${IMAGE}"
 )
