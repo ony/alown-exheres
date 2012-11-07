@@ -25,7 +25,9 @@ DEPENDENCIES="
 
 BUGS_TO="ali@lown.me.uk"
 
-DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/${PNV}-config.patch")
+src_prepare() {
+    patch -p0 < "${FILES}/${PNV}-config.patch"
+}
 
 SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
