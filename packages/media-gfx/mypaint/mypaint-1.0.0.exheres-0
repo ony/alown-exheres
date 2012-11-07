@@ -25,6 +25,15 @@ DEPENDENCIES="
 
 BUGS_TO="ali@lown.me.uk"
 
+src_prepare() {
+    #Handle amd64 instead. TODO: anyone use 32bit only now?
+    mv lib lib64
+    #A hideous sed (intending to handle lib, but not brushlib)
+    sed -i -e "s/[^h]lib\//lib64\//" SConstruct
+
+    default_src_prepare
+}
+
 SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
 )
