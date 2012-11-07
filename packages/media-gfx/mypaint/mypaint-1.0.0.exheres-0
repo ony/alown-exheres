@@ -27,13 +27,6 @@ BUGS_TO="ali@lown.me.uk"
 
 DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/${PNV}-config.patch")
 
-src_prepare() {
-    #Handle amd64 instead. TODO: anyone use 32bit only now?
-    mv lib lib64
-
-    default_src_prepare
-}
-
 SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
 )

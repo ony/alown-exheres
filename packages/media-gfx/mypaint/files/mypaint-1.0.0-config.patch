@@ -1,0 +1,4 @@
+167c167
+< install_perms('$prefix/lib/mypaint', module)
+---
+> install_perms('$prefix/lib64/mypaint', module)
