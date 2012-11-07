@@ -27,10 +27,8 @@ BUGS_TO="ali@lown.me.uk"
 
 SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
-    --install-sandbox="${IMAGE}"
 )
 
 SCONS_SRC_INSTALL_PARAMS=(
-    prefix="/usr"
-    --install-sandbox="${IMAGE}"
+    prefix="${IMAGE}/usr"
 )
