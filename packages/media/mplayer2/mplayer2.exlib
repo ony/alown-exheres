@@ -8,28 +8,23 @@ HOMEPAGE="http://www.mplayer2.org/"
 LICENCES="GPL-2"
 SLOT="0"
 MYOPTIONS="
-    X aalib alsa a52 dvd ipv6 mp3 opengl pulseaudio sdl truetype xinerama xvid
+    X alsa a52 dvd ipv6 mp3 opengl pulseaudio sdl xinerama xvid
 
-    ass [[ description = [ Enable support for SSA/ASS rendering via libass ] ]]
     audiocd [[ description = [ Uses libcdio to play AudioCDs ] ]]
     bluray [[ description = [ Support playing Blu-ray discs via libbluray ] ]]
     caca [[ description = [ Colored ASCII-art video output ] ]]
     cddb [[ description = [ Fetch AudioCD track information from cddb or freedb ] ]]
     samba [[ description = [ Support playing files on SMB shares ] ]]
-    truetype [[ description = [ Needed to display subtitles and OSDs ] ]]
     v4l [[ description = [ Support V4L2 decoders, encoders, and tuners ] ]]
     vdpau [[ description = [ Enable support for VDPAU hardware accelerated video decoding ] ]]
 
     (
         video_drivers:
-            fbdev
             v4l [[ description = [ Support outputting to V4L2 devices ] ]]
         platform: amd64 x86
         amd64_cpu_features: 3dnow 3dnowext ssse3
         x86_cpu_features: 3dnow 3dnowext mmx mmxext sse ssse3
     )
-
-    ass [[ requires = [ truetype ] note = [ used for subtitle scale ] ]]
 "
 
 DEPENDENCIES="
@@ -42,7 +37,6 @@ DEPENDENCIES="
         media-libs/jpeg
         sys-libs/ncurses
         a52? ( media-libs/a52dec )
-        aalib? ( media-libs/aalib )
         alsa? ( sys-sound/alsa-lib )
         ass? ( media-libs/libass )
         audiocd? ( dev-libs/libcdio )
@@ -58,10 +52,6 @@ DEPENDENCIES="
         pulseaudio? ( media-sound/pulseaudio[>=0.9] )
         samba? ( net-fs/samba )
         sdl? ( media-libs/SDL )
-        truetype? (
-            media-libs/freetype[>=2.0.9]
-            media-libs/fontconfig[>=2.4.2]
-        )
         vdpau? ( x11-libs/libvdpau )
         xinerama? ( x11-libs/libXinerama )
         xvid? ( media-libs/xvid )
@@ -76,14 +66,41 @@ DEPENDENCIES="
 
 if ever at_least scm ; then
     MYOPTIONS+="
+        ass [[ description = [ Enable support for SSA/ASS and OSD rendering via libass ] ]]
         quvi [[ description = [ Enable support for playing content from streaming sites ] ]]
     "
     DEPENDENCIES+="
         build:
             dev-lang/python:*[~>3] [[ note = [ Some packages in TOOLS require python3 at build time ] ]]
+            dev-python/docutils
+        build+run:
             quvi? ( dev-libs/libquvi )
 "
+else
+    MYOPTIONS+="
+        aalib
+        ass [[ description = [ Enable support for SSA/ASS rendering via libass ] ]]
+        truetype [[ description = [ Needed to display subtitles and OSDs ] ]]
+
+        (
+            video_drivers:
+                fbdev
+        )
+
+        ass [[ requires = [ truetype ] note = [ used for subtitle scale ] ]]
+    "
+    DEPENDENCIES+="
+        build+run:
+            aalib? ( media-libs/aalib )
+            truetype? (
+                media-libs/freetype[>=2.0.9]
+                media-libs/fontconfig[>=2.4.2]
+            )
+    "
 fi
+
+# HEAD at the time of scm changes
+# 91a18f3998323b6d9b0ef67b4c1865d40fabfaf8
 
 DEFAULT_SRC_COMPILE_PARAMS=( V=1 )
 
@@ -92,6 +109,10 @@ src_prepare() {
     edo sed \
         -e 's/_install_strip=.*/_install_strip=/' \
         -i "${WORK}"/configure
+    # appearently other distros use rst2man without .py
+    edo sed \
+        -e 's/rst2man/rst2man.py/g' \
+        -i "${WORK}"/Makefile
     default
 }
 
@@ -133,7 +154,6 @@ src_configure() {
         $(my_option_enable v4l pvr)                     # Video4Linux2 MPEG PVR
         --disable-winsock2_h                            # winsock2_h
         $(my_option_enable samba smb)                   # Samba (SMB) input
-        --disable-nemesi                                # Nemesi Streaming Media
         --enable-vcd                                    # VCD support
         $(my_option_enable bluray)                      # Blu-ray support
         $(my_option_enable dvd dvdnav)                  # libdvdnav
@@ -141,9 +161,6 @@ src_configure() {
         --disable-dvdread-internal                      # internal libdvdread
         --disable-libdvdcss-internal                    # internal libdvdcss
         $(my_option_enable cddb)                        # cddb
-        $(my_option_enable truetype freetype)           # FreeType 2 font rendering
-        $(my_option_enable truetype fontconfig)         # fontconfig font lookup
-        --disable-fribidi                               # the FriBiDi libs
         --disable-enca                                  # ENCA charset oracle library
         --disable-macosx-bundle                         # Mac OS X bundle file locations
         $(my_option_enable ipv6 inet6)                  # IPv6 support
@@ -176,22 +193,11 @@ src_configure() {
 
         # Video output
         $(my_option_enable opengl gl)                   # OpenGL video output
-        --disable-dga2                                  # DGA 2 support
-        --disable-dga1                                  # DGA 1 support
-        --disable-vesa                                  # VESA video output
-        --disable-svga                                  # SVGAlib video output
         $(my_option_enable sdl)                         # SDL video output
-        $(my_option_enable aalib aa)                    # AAlib video output
         $(my_option_enable caca)                        # CACA  video output
-        --disable-ggi                                   # GGI video output
-        --disable-ggiwmh                                # GGI libggiwmh extension
         --disable-direct3d                              # Direct3D video output
         --disable-directx                               # DirectX video output
-        --disable-dxr3                                  # DXR3/H+ video output
-        --disable-ivtv                                  # IVTV TV-Out video output
         $(my_option_enable video_drivers:v4l v4l2)      # V4L2 Decoder audio/video output
-        --disable-mga                                   # mga_vid video output
-        --disable-xmga                                  # mga_vid X11 video output
         $(my_option_enable X xv)                        # Xv video output
         $(my_option_enable vdpau)                       # VDPAU acceleration
         --disable-vm                                    # XF86VidMode support
@@ -199,20 +205,15 @@ src_configure() {
         $(my_option_enable X x11)                       # X11 video output
         --disable-xshape                                # XShape support
         --disable-xss                                   # screensaver support via xss
-        $(my_option_enable video_drivers:fbdev)         # FBDev video output
         --disable-directfb                              # DirectFB video output
-        --disable-xvr100                                # SUN XVR-100 video output
         --disable-corevideo                             # CoreVideo video output
         --disable-cocoa                                 # Cocoa OpenGL backend
 
         # Audio output
         $(my_option_enable alsa)                        # ALSA audio output
-        --disable-ossaudio                               # OSSv4 audio output
+        --enable-ossaudio                               # OSSv4 audio output
         $(my_option_enable pulseaudio pulse)            # Pulseaudio audio output
-        --disable-nas                                   # NAS audio output
         --disable-rsound                                # RSound audio output
-        --disable-sunaudio                              # Sun audio output
-        --disable-win32waveout                          # Windows waveout audio output
         --disable-coreaudio                             # CoreAudio audio output
 
         # Some cpu specific features
@@ -228,7 +229,35 @@ src_configure() {
 
     if ever at_least scm ; then
         myopts+=(
+            --disable-lcms2                             # colour management
+            --disable-libavresample                     # sample format conversion
             $(my_option_enable quvi libquvi)            # Streaming sites via libquvi
+        )
+    else
+        myopts+=(
+            $(my_option_enable truetype freetype)       # FreeType 2 font rendering
+            $(my_option_enable truetype fontconfig)     # fontconfig font lookup
+            --disable-fribidi                           # the FriBiDi libs
+
+            # Video output
+            --disable-dga2                              # DGA 2 support
+            --disable-dga1                              # DGA 1 support
+            --disable-vesa                              # VESA video output
+            --disable-svga                              # SVGAlib video output
+            $(my_option_enable aalib aa)                # AAlib video output
+            --disable-ggi                               # GGI video output
+            --disable-ggiwmh                            # GGI libggiwmh extension
+            --disable-dxr3                              # DXR3/H+ video output
+            --disable-ivtv                              # IVTV TV-Out video output
+            --disable-mga                               # mga_vid video output
+            --disable-xmga                              # mga_vid X11 video output
+            $(my_option_enable video_drivers:fbdev)     # FBDev video output
+            --disable-xvr100                            # SUN XVR-100 video output
+
+            # Audio output
+            --disable-nas                               # NAS audio output
+            --disable-sunaudio                          # Sun audio output
+            --disable-win32waveout                      # Windows waveout audio output
         )
     fi
 
@@ -259,6 +288,7 @@ src_configure() {
 
 src_install() {
     default
+
     edo rmdir "${IMAGE}"/usr/lib
     edo rmdir "${IMAGE}"/etc{/mplayer,}
 }
