@@ -1,0 +1,71 @@
+--- mypaint-1.1.0/SConstruct.orig  2013-01-09 21:24:03.090487505 +0200
++++ mypaint-1.1.0/SConstruct   2013-01-09 23:11:58.037620605 +0200
+@@ -25,6 +25,7 @@
+ 
+ opts = Variables()
+ opts.Add(PathVariable('prefix', 'autotools-style installation prefix', default_prefix, validator=PathVariable.PathIsDirCreate))
++opts.Add(PathVariable('libdirname', 'directory of libraries', 'lib', validator=PathVariable.PathIsDirCreate))
+ opts.Add(BoolVariable('debug', 'enable HEAVY_DEBUG and disable optimizations', False))
+ opts.Add(BoolVariable('enable_profiling', 'enable debug symbols for profiling purposes (on by default)', True))
+ opts.Add(BoolVariable('brushlib_only', 'only build and install brushlib/', False))
+@@ -158,7 +159,7 @@
+ install_tree(env, '$prefix/share/mypaint', 'brushes')
+ 
+ # These hierarchies belong entirely to us, so unmake if asked.
+-env.Clean('$prefix', '$prefix/lib/mypaint')
++env.Clean('$prefix', '$prefix/$libdirname/mypaint')
+ env.Clean('$prefix', '$prefix/share/mypaint')
+ 
+ # Convenience alias for installing to $prefix
+--- mypaint-1.1.0/SConscript.orig  2012-12-31 19:03:38.000000000 +0200
++++ mypaint-1.1.0/SConscript   2013-01-09 23:29:49.429642629 +0200
+@@ -46,7 +46,7 @@
+ install_perms(env, '$prefix/share/applications', 'desktop/mypaint.desktop')
+ 
+ # location for achitecture-dependent modules
+-install_perms(env, '$prefix/lib/mypaint', mypaintlib)
++install_perms(env, '$prefix/$libdirname/mypaint', mypaintlib)
+ 
+ # Program and supporting UI XML
+ install_perms(env, '$prefix/bin', 'mypaint', perms=0755)
+--- mypaint-1.1.0/brushlib/SConscript.orig 2012-12-31 19:03:38.000000000 +0200
++++ mypaint-1.1.0/brushlib/SConscript  2013-01-09 23:39:12.662654207 +0200
+@@ -47,7 +47,7 @@
+     }
+     pc_file = env.Substfile('%s.pc' % pkgconfig_name,
+                             "pkgconfig.pc.in", SUBST_DICT=pkg_info)
+-    install_perms(env, '$prefix/lib/pkgconfig', pc_file)
++    install_perms(env, '$prefix/$libdirname/pkgconfig', pc_file)
+ 
+     return pc_file
+ 
+@@ -117,9 +117,9 @@
+                               './brushlib', brushlib, ['glib-2.0'])
+ 
+     install_perms(env, '$prefix/share/gir-1.0', gir)
+-    install_perms(env, '$prefix/lib/girepository-1.0', typelib)
++    install_perms(env, '$prefix/$libdirname/girepository-1.0', typelib)
+ 
+-install_perms(env, '$prefix/lib/', brushlib)
++install_perms(env, '$prefix/$libdirname/', brushlib)
+ install_perms(env, '$prefix/include/libmypaint', Glob("./mypaint-*.h"))
+ install_perms(env, '$prefix/include/libmypaint/glib', Glob("./glib/mypaint-*.h"))
+ 
+@@ -139,7 +139,7 @@
+     lib_builder = gegl_env.SharedLibrary if env['use_sharedlib'] else gegl_env.StaticPicLibrary
+     brushlib_gegl = lib_builder('../mypaint-gegl', Glob("./gegl/*.c"))
+ 
+-    install_perms(env, '$prefix/lib/', brushlib_gegl)
++    install_perms(env, '$prefix/$libdirname/', brushlib_gegl)
+     install_perms(env, '$prefix/include/libmypaint-gegl', Glob("./gegl/mypaint-gegl-*.h"))
+ 
+     create_pkgconfig_files(env, 'libmypaint-gegl', brushlib_version, 'MyPaint brush engine library, with GEGL integration',
+@@ -152,7 +152,7 @@
+                                   './brushlib/gegl', brushlib_gegl, ['glib-2.0', 'gegl-0.2'])
+ 
+         install_perms(env, '$prefix/share/gir-1.0', gir)
+-        install_perms(env, '$prefix/lib/girepository-1.0', typelib)
++        install_perms(env, '$prefix/$libdirname/girepository-1.0', typelib)
+ 
+ Export('gegl_env', 'env')
+ tests = SConscript('tests/SConscript')

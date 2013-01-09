@@ -25,9 +25,7 @@ DEPENDENCIES="
 
 BUGS_TO="ali@lown.me.uk"
 
-src_prepare() {
-    patch -p0 < "${FILES}/${PNV}-config.patch"
-}
+DEFAULT_SRC_PREPARE_PATCHES=( "${FILES}/${PNV}-config.patch" )
 
 pkg_postinst() {
     gtk-icon-cache_pkg_postinst
@@ -39,8 +37,10 @@ pkg_postrm() {
 
 SCONS_SRC_COMPILE_PARAMS=(
     prefix="/usr"
+    libdirname="${LIBDIR:-lib}"
 )
 
 SCONS_SRC_INSTALL_PARAMS=(
     prefix="${IMAGE}/usr"
+    libdirname="${LIBDIR:-lib}"
 )
