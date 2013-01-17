@@ -230,7 +230,6 @@ src_configure() {
     if ever at_least scm ; then
         myopts+=(
             --disable-lcms2                             # colour management
-            --disable-libavresample                     # sample format conversion
             $(my_option_enable quvi libquvi)            # Streaming sites via libquvi
         )
     else
