@@ -1,0 +1,20 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Stratum Mining Proxy"
+DESCRIPTION="Bitcoin mining proxy for non-Stratum enable miners to use the Stratum protocol instead"
+HOMEPAGE="http://github.com/slush0/stratum-mining-proxy"
+
+SCM_REPOSITORY="git://github.com/slush0/stratum-mining-proxy.git"
+
+require scm-git setuptools python
+
+LICENCES="GPL3"
+SLOT="0"
+PLATFORMS="~amd64"
+BUGS_TO="ali@lown.me.uk"
+
+DEPENDENCIES="
+    build+run:
+        net-twisted/TwistedCore
+"
