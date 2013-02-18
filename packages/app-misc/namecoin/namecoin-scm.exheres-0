@@ -1,0 +1,27 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Namecoin Daemon + Client"
+DESCRIPTION="Namecoin is a peer-to-peer naming system based on bitcoin."
+HOMEPAGE="https://dot-bit.org"
+
+SCM_REPOSITORY="git://github.com/namecoin/namecoin.git"
+
+require scm-git
+
+LICENCES="BSD"
+SLOT="0"
+PLATFORMS="~amd64"
+BUGS_TO="ali@lown.me.uk"
+
+DEPENDENCIES="
+    build:
+    build+run:
+        dev-libs/boost
+"
+
+src_prepare()
+{
+    cd src
+    ln -s makefile.unix makefile
+}
