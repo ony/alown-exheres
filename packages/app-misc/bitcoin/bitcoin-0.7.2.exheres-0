@@ -20,6 +20,7 @@ DEPENDENCIES="
     build:
     build+run:
         dev-libs/boost
+        net-libs/miniupnpc
 "
 
 WORK="${WORKBASE}/${PNV}-linux/"
@@ -39,5 +40,5 @@ src_install()
     default
 
     mkdir -p ${IMAGE}/usr/bin
-    cp src/bitcoind ${IMAGE}/usr/bin/
+    cp src/src/bitcoind ${IMAGE}/usr/bin/
 }
