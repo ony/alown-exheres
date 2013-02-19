@@ -21,6 +21,8 @@ DEPENDENCIES="
     build+run:
         dev-libs/boost
         net-libs/miniupnpc
+        sys-libs/db
+        dev-libs/openssl
 "
 
 WORK="${WORKBASE}/${PNV}-linux/"
@@ -31,6 +33,8 @@ src_compile()
     #Yes, this is correct
     cd src/src
     ln -s makefile.unix makefile
+
+    export BOOST_LIB_SUFFIX="-mt"
 
     default
 }
