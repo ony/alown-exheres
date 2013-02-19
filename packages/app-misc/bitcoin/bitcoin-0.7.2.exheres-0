@@ -1,0 +1,35 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Bitcoin"
+DESCRIPTION="Bitcoin is a P2P distributed currency system"
+HOMEPAGE="http://bitcoin.org"
+
+require sourceforge
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+BUGS_TO="ali@lown.me.uk"
+
+DEPENDENCIES="
+    build:
+    build+run:
+        dev-libs/boost
+"
+
+src_compile()
+{
+    cd src
+    ln -s makefile.unix makefile
+
+    default
+}
+
+src_install()
+{
+    default
+
+    mkdir -p ${IMAGE}/usr/bin
+    cp src/bitcoind ${IMAGE}/usr/bin/
+}
