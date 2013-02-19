@@ -30,3 +30,11 @@ src_compile()
     default
 }
 
+
+src_install()
+{
+    default
+
+    mkdir-p ${IMAGE}/usr/bin
+    cp src/namecoind ${IMAGE}/usr/bin/
+}
