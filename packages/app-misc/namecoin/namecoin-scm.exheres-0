@@ -20,7 +20,7 @@ DEPENDENCIES="
         dev-libs/boost
 "
 
-DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/boost-mt.patch", "${FILES}/dyn-link.patch")
+DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/boost-mt.patch" "${FILES}/dyn-link.patch")
 
 src_compile()
 {
