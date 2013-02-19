@@ -1,0 +1,25 @@
+From cbac1814ff91b4a8b32f4a541dcf37eb781df20b Mon Sep 17 00:00:00 2001
+From: Ali Lown <ali@lown.me.uk>
+Date: Tue, 19 Feb 2013 17:47:02 +0000
+Subject: [PATCH] Use dynamic linking!!!
+
+---
+ src/makefile.unix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/makefile.unix b/src/makefile.unix
+index 58fb31b..8d48d60 100644
+--- a/src/makefile.unix
++++ b/src/makefile.unix
+@@ -12,7 +12,7 @@ DEFS=-DNOPCH -DFOURWAYSSE2 -DUSE_SSL
+ 
+ # for boost 1.37, add -mt to the boost libraries
+ LIBS= \
+- -Wl,-Bstatic \
++ -Wl,-Bdynamic \
+    -l boost_system-mt \
+    -l boost_filesystem-mt \
+    -l boost_program_options-mt \
+-- 
+1.8.1.3
+
