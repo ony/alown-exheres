@@ -1,0 +1,31 @@
+From 1db1e91b0dc03322afb1c9352b523664cbd382f2 Mon Sep 17 00:00:00 2001
+From: Ali Lown <ali@lown.me.uk>
+Date: Tue, 19 Feb 2013 17:24:05 +0000
+Subject: [PATCH] Use boost mt libraries
+
+---
+ src/makefile.unix | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/makefile.unix b/src/makefile.unix
+index 72bfaf6..58fb31b 100644
+--- a/src/makefile.unix
++++ b/src/makefile.unix
+@@ -13,10 +13,10 @@ DEFS=-DNOPCH -DFOURWAYSSE2 -DUSE_SSL
+ # for boost 1.37, add -mt to the boost libraries
+ LIBS= \
+  -Wl,-Bstatic \
+-   -l boost_system \
+-   -l boost_filesystem \
+-   -l boost_program_options \
+-   -l boost_thread \
++   -l boost_system-mt \
++   -l boost_filesystem-mt \
++   -l boost_program_options-mt \
++   -l boost_thread-mt \
+    -l db_cxx \
+    -l ssl \
+    -l crypto
+-- 
+1.8.1.3
+

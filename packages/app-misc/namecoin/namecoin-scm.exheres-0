@@ -20,6 +20,8 @@ DEPENDENCIES="
         dev-libs/boost
 "
 
+DEFAULT_SRC_PREPARE_PATCHS=("${FILES}/boost-mt.patch")
+
 src_compile()
 {
     cd src
