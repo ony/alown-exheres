@@ -5,7 +5,11 @@ SUMMARY="Bitcoin"
 DESCRIPTION="Bitcoin is a P2P distributed currency system"
 HOMEPAGE="http://bitcoin.org"
 
-require sourceforge
+#Can't use because they provide bitcoin-$PNV-linux.tar.gz,
+#which this script doesn't understand
+#require sourceforge
+
+DOWNLOADS="mirror://sourceforge/bitcoin/${PNV}-linux.tar.gz"
 
 LICENCES="MIT"
 SLOT="0"
@@ -17,6 +21,9 @@ DEPENDENCIES="
     build+run:
         dev-libs/boost
 "
+
+WORK="${WORKBASE}/${PNV}-linux/"
+ECONF_SOURCE="${WORKBASE}/${PNV}-linux/"
 
 src_compile()
 {
