@@ -20,8 +20,11 @@ DEPENDENCIES="
         dev-libs/boost
 "
 
-src_prepare()
+src_compile()
 {
     cd src
     ln -s makefile.unix makefile
+
+    default
 }
+
