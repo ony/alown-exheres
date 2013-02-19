@@ -27,7 +27,8 @@ ECONF_SOURCE="${WORKBASE}/${PNV}-linux/"
 
 src_compile()
 {
-    cd src
+    #Yes, this is correct
+    cd src/src
     ln -s makefile.unix makefile
 
     default
