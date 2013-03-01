@@ -14,7 +14,10 @@ MYOPTIONS="
     bluray [[ description = [ Support playing Blu-ray discs via libbluray ] ]]
     caca [[ description = [ Colored ASCII-art video output ] ]]
     cddb [[ description = [ Fetch AudioCD track information from cddb or freedb ] ]]
+    enca [[ description = [ ENCA charset autodetection for subtitles etc. ] ]]
+    postproc [[ description = [ Enable prost processing filters using libav's libpostproc ] ]]
     samba [[ description = [ Support playing files on SMB shares ] ]]
+    screensaver   [[ description = [ Use the X Screen Saver extension, e.g. to block the screensaver ] ]]
     v4l [[ description = [ Support V4L2 decoders, encoders, and tuners ] ]]
     vdpau [[ description = [ Enable support for VDPAU hardware accelerated video decoding ] ]]
 
@@ -30,8 +33,8 @@ MYOPTIONS="
 DEPENDENCIES="
     build:
         dev-lang/yasm
-        dev-util/pkg-config
         sys-kernel/linux-headers
+        virtual/pkg-config
     build+run:
        !media/mplayer
         media-libs/jpeg
@@ -47,10 +50,13 @@ DEPENDENCIES="
             media-libs/libdvdnav
             media-libs/libdvdread
         )
+        enca? ( app-text/enca )
         mp3? ( media-sound/mpg123 )
         opengl? ( x11-dri/mesa )
+        postproc? ( virtual/libpostproc )
         pulseaudio? ( media-sound/pulseaudio[>=0.9] )
         samba? ( net-fs/samba )
+        screensaver? ( x11-libs/libXScrnSaver )
         sdl? ( media-libs/SDL )
         vdpau? ( x11-libs/libvdpau )
         xinerama? ( x11-libs/libXinerama )
@@ -74,7 +80,11 @@ if ever at_least scm ; then
             dev-lang/python:*[~>3] [[ note = [ Some packages in TOOLS require python3 at build time ] ]]
             dev-python/docutils
         build+run:
-            quvi? ( dev-libs/libquvi )
+            quvi? ( dev-libs/libquvi[>=0.4.1] )
+            || (
+                media/libav[>=9_beta1]
+                media/ffmpeg[>=1.0-r1] [[ note = [ enabled libavresample ] ]]
+            )
 "
 else
     MYOPTIONS+="
@@ -100,7 +110,7 @@ else
 fi
 
 # HEAD at the time of scm changes
-# 91a18f3998323b6d9b0ef67b4c1865d40fabfaf8
+# d2e5a69bbc9cfd274db1042133ddb08ba96c6eba
 
 DEFAULT_SRC_COMPILE_PARAMS=( V=1 )
 
@@ -143,11 +153,9 @@ src_configure() {
         --disable-apple-ir                              # Apple IR Remote input (Linux only)
         --disable-vm                                    # X video mode extensions
         --disable-xf86keysym                            # support for multimedia keys
-        $(my_option_enable_really v4l radio)            # Support for radio streams
         $(my_option_enable_really v4l radio-capture)    # Support for saving radio streams
         $(my_option_enable v4l radio-v4l2)              # Video4Linux2 radio interface
         --disable-radio-bsdbt848                        # BSD BT848 radio interface
-        --disable-tv-v4l1                               # Video4Linux TV interface
         $(my_option_enable v4l tv-v4l2)                 # Video4Linux2 TV interface
         --disable-tv-bsdbt848                           # BSD BT848 interface
         --enable-dvb                                    # DVB input and video output
@@ -161,11 +169,12 @@ src_configure() {
         --disable-dvdread-internal                      # internal libdvdread
         --disable-libdvdcss-internal                    # internal libdvdcss
         $(my_option_enable cddb)                        # cddb
-        --disable-enca                                  # ENCA charset oracle library
+        $(my_option_enable enca)                        # ENCA charset oracle library
         --disable-macosx-bundle                         # Mac OS X bundle file locations
         $(my_option_enable ipv6 inet6)                  # IPv6 support
         --disable-vstream                               # TiVo vstream client support
         --disable-w32threads                            # Win32 threads support
+        $(my_option_enable postproc libpostproc)        # post processing filter using libpostproc
 
         # Codecs
         --disable-gif                                   # GIF support
@@ -203,7 +212,6 @@ src_configure() {
         --disable-vm                                    # XF86VidMode support
         $(my_option_enable xinerama)                    # Xinerama support
         $(my_option_enable X x11)                       # X11 video output
-        --disable-xshape                                # XShape support
         --disable-xss                                   # screensaver support via xss
         --disable-directfb                              # DirectFB video output
         --disable-corevideo                             # CoreVideo video output
@@ -213,6 +221,7 @@ src_configure() {
         $(my_option_enable alsa)                        # ALSA audio output
         --enable-ossaudio                               # OSSv4 audio output
         $(my_option_enable pulseaudio pulse)            # Pulseaudio audio output
+        $(my_option_enable screensaver xss)
         --disable-rsound                                # RSound audio output
         --disable-coreaudio                             # CoreAudio audio output
 
@@ -231,9 +240,15 @@ src_configure() {
         myopts+=(
             --disable-lcms2                             # colour management
             $(my_option_enable quvi libquvi)            # Streaming sites via libquvi
+
+            # force libavresample since ffmpeg's lib isn't properly detected
+            --enable-libavresample                      # sample format conversion
+            --extra-cflags="$(pkg-config libavresample --cflags)"
+            --extra-ldflags="$(pkg-config libavresample --libs)"
         )
     else
         myopts+=(
+            --disable-nemesi                            # Nemesi Streaming Media
             $(my_option_enable truetype freetype)       # FreeType 2 font rendering
             $(my_option_enable truetype fontconfig)     # fontconfig font lookup
             --disable-fribidi                           # the FriBiDi libs
@@ -249,6 +264,9 @@ src_configure() {
             --disable-dxr3                              # DXR3/H+ video output
             --disable-ivtv                              # IVTV TV-Out video output
             --disable-mga                               # mga_vid video output
+            $(my_option_enable_really v4l radio)        # Support for radio streams
+            --disable-tv-v4l1                           # Video4Linux TV interface
+            --disable-xshape                            # XShape support
             --disable-xmga                              # mga_vid X11 video output
             $(my_option_enable video_drivers:fbdev)     # FBDev video output
             --disable-xvr100                            # SUN XVR-100 video output
