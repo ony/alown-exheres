@@ -1,0 +1,354 @@
+# Copyright 2008 Kim Højgaard-Hansen
+# Copyright 2009 Bo Ørsted Andresen <zlin@exherbo.org>
+# Copyright 2012 Johannes Nixdorf <mixi@exherbo.org>
+# Distributed under the terms of the GNU General Public License v2
+
+# TODO:
+#   - Figure out licences (e.g. configure options to switch to (l)gpl3)
+#   - maybe a bindist flag?
+
+require easy-multibuild
+
+export_exlib_phases pkg_setup src_configure src_test
+
+SUMMARY="A complete solution to record, convert and stream audio and video"
+
+HOMEPAGE="http://libav.org/"
+DOWNLOADS="http://libav.org/releases/${PNV}.tar.xz"
+
+LICENCES="GPL-2 GPL-3 LGPL-2.1 LGPL-3"
+BUGS_TO="mixi@exherbo.org"
+
+UPSTREAM_CHANGELOG="http://libav.org/releases/${PNV}.changelog"
+
+SLOT="0"
+
+MYOPTIONS="doc h264 truetype
+    X            [[ description = [ Enable support for X11 grabbing ] ]]
+    aac          [[ description = [ Additional AAC encoder plugin (libav's encoder is experimental) ] ]]
+    cd           [[ description = [ Audio CD grabbing ] ]]
+    dirac        [[ description = [ Support encoding and decoding dirac ] ]]
+    frei0r       [[ description = [ Video effects using frei0r-plugins ] ]]
+    gsm          [[ description = [ Support for GSM codec (audio), mainly for telephony ] ]]
+    ieee1394     [[ description = [ Enable IIDC-1394 grabbing using libdc1394 ] ]]
+    jpeg2000     [[ description = [ Support for the lossy image compression format ] ]]
+    mp3          [[ description = [ Support for mp3 encoding with lame ] ]]
+    opencore     [[ description = [ Support for OpenCORE AMR-WB decoder and encoder (audio) ] ]]
+    opencv       [[ description = [ Computer Vision techniques from OpenCV ] note = [ untested ] ]]
+    player       [[ description = [ Libav reference audio and video player software ] ]]
+    pulseaudio   [[ description = [ Pulseaudio capture support ] ]]
+    speex        [[ description = [ Enable support for decoding and encoding audio using libspeex ] ]]
+    theora       [[ description = [ Enable support for encoding using the Theora Video Compression Codec ] ]]
+    va           [[ description = [ Enable support for decoding video using the Video Acceleration API ] ]]
+    vdpau        [[ description = [ Enable support for VDPAU hardware accelerated video decoding ] ]]
+    vorbis       [[ description = [ Additional OggVorbis audio encoder plugin (ffmpeg's encoder is experimental) ] ]]
+    vp8          [[ description = [ Enable support for the VP8 video compression format ] ]]
+    xavs         [[ description = [ Support AVS, the Audio Video Standard of China ] ]]
+
+    (
+        platform: amd64 ppc x86
+        ppc_cpu_features: altivec
+        multibuild_c: 32 64
+    )
+"
+
+DEPENDENCIES="
+    build:
+        app-arch/xz
+        doc? ( app-text/texi2html )
+        platform:amd64? ( dev-lang/yasm )
+        platform:x86? ( dev-lang/yasm )
+    build+run:
+        app-arch/bzip2
+        sys-libs/zlib
+        sys-sound/alsa-lib
+        aac? ( media-libs/vo-aacenc )
+        cd? ( dev-libs/libcdio )
+        dirac? ( media-libs/schroedinger )
+        frei0r? ( media-plugins/frei0r-plugins )
+        gnutls? ( dev-libs/gnutls )
+       !gnutls? ( dev-libs/openssl )
+        gsm? ( media-libs/gsm )
+        h264? ( media-libs/x264[>=20120104] )
+        ieee1394? (
+            media-libs/libdc1394:2
+            media-libs/libraw1394
+        )
+        jpeg2000? ( media-libs/OpenJPEG )
+        mp3? ( media-sound/lame[>=3.98.3] )
+        opencore? (
+            media-libs/opencore-amr
+            media-libs/vo-amrwbenc
+        )
+        opencv? ( media-libs/opencv )
+        player? ( media-libs/SDL[>=1.2.1] )
+        pulseaudio? ( media-sound/pulseaudio )
+        speex? ( media-libs/speex )
+        theora? (
+            media-libs/libtheora
+            media-libs/libogg
+        )
+        truetype? ( media-libs/freetype:2 )
+        va? ( x11-libs/libva[>=1.0.6] )
+        vdpau? ( x11-libs/libvdpau[>=0.2] )
+        vorbis? (
+            media-libs/libogg
+            media-libs/libvorbis
+        )
+        X? (
+            x11-libs/libX11
+            x11-libs/libXext
+            x11-libs/libXfixes
+        )
+        xavs? ( media-libs/xavs )
+
+        !media/ffmpeg [[ description = [ This is a fork of ffmpeg and uses the same file names ] ]]
+"
+
+if ever at_least 9; then
+    MYOPTIONS+="
+        gnutls     [[ description = [ Use GnuTLS instead of OpenSSL (required for native RTMP(E) support) ] ]]
+        ilbc       [[ description = [ Support for en/decoding iLBC (audio codec) via libilbc ] ]]
+        opus       [[ description = [ Support for en/decoding opus (audio codec) via libopus ] ]]
+
+        (
+            amd64_cpu_features:
+                3dnow
+                3dnowext [[ requires = [ amd64_cpu_features: 3dnow  ] ]]
+                avx      [[ requires = [ amd64_cpu_features: sse4.2 ] ]]
+                fma4     [[ requires = [ amd64_cpu_features: avx    ] ]]
+                sse4.1   [[ requires = [ amd64_cpu_features: ssse3  ] ]]
+                sse4.2   [[ requires = [ amd64_cpu_features: sse4.1 ] ]]
+                ssse3
+            x86_cpu_features:
+                3dnow    [[ requires = [ x86_cpu_features: mmx    ] ]]
+                3dnowext [[ requires = [ x86_cpu_features: 3dnow  ] ]]
+                avx      [[ requires = [ x86_cpu_features: sse4.2 ] ]]
+                fma4     [[ requires = [ x86_cpu_features: avx    ] ]]
+                mmx
+                mmxext   [[ requires = [ x86_cpu_features: mmx    ] ]]
+                sse      [[ requires = [ x86_cpu_features: mmxext ] ]]
+                sse2     [[ requires = [ x86_cpu_features: sse    ] ]]
+                sse3     [[ requires = [ x86_cpu_features: sse2   ] ]]
+                sse4.1   [[ requires = [ x86_cpu_features: ssse3  ] ]]
+                sse4.2   [[ requires = [ x86_cpu_features: sse4.1 ] ]]
+                ssse3    [[ requires = [ x86_cpu_features: sse3   ] ]]
+        )
+    "
+    DEPENDENCIES+="
+        build+run:
+            gnutls? (
+                dev-libs/gmp:=
+                dev-libs/libgcrypt
+                dev-libs/nettle
+            )
+            ilbc?   ( media-libs/ilbc )
+            opus?   ( media-libs/opus )
+            vp8? ( media-libs/libvpx[>=0.9.6] )
+    "
+else
+    MYOPTIONS+="
+        gnutls     [[ description = [ Use GnuTLS instead of OpenSSL ] ]]
+        nut        [[ description = [ Support for the NUT container using libnut, libav has a native implementation ] ]]
+        rtmp       [[ description = [ RTMP (flash stream) support ] ]]
+
+        (
+            amd64_cpu_features:
+                3dnow
+                3dnowext [[ requires = [ amd64_cpu_features: 3dnow  ] ]]
+                avx      [[ requires = [ amd64_cpu_features: ssse3  ] ]]
+                ssse3
+            x86_cpu_features:
+                3dnow    [[ requires = [ x86_cpu_features: mmx    ] ]]
+                3dnowext [[ requires = [ x86_cpu_features: 3dnow  ] ]]
+                avx      [[ requires = [ x86_cpu_features: ssse3  ] ]]
+                mmx
+                mmx2     [[ requires = [ x86_cpu_features: mmx    ] ]]
+                sse      [[ requires = [ x86_cpu_features: mmx    ] ]]
+                ssse3    [[ requires = [ x86_cpu_features: sse    ] ]]
+        )
+    "
+    DEPENDENCIES+="
+        build+run:
+            rtmp? ( media-video/rtmpdump[>=2.2] )
+            nut?  ( media-libs/libnut )
+            vp8? ( media-libs/libvpx[>=0.9.1] )
+
+            !media-libs/libpostproc [[ description = [ libpostproc was split from libav ] ]]
+    "
+fi
+
+DEFAULT_SRC_INSTALL_PARAMS=( install-man )
+
+LIBAV_LIBDIRS=(
+    libavcodec
+    libavdevice
+    libavfilter
+    libavformat
+    libavutil
+    libswscale
+)
+
+if ever at_least 9; then
+    LIBAV_LIBDIRS+=( libavresample )
+else
+    LIBAV_LIBDIRS+=(
+        libavcore
+        libpostproc
+    )
+fi
+
+libav_pkg_setup() {
+    export V=1
+}
+
+libav_src_test() {
+    LD_LIBRARY_PATH=$(IFS=:; echo "${LIBAV_LIBDIRS[*]}") \
+        emake fate
+}
+
+# grayscale support is disabled
+libav_src_configure() {
+    local myconf=()
+
+    # We hard enable mmx, mmxext, sse, sse2, sse3 on amd64, as all CPUs have them
+    if option platform:amd64; then
+        myconf+=(
+            --enable-mmx
+            --enable-sse
+            --enable-yasm
+            $(option_enable amd64_cpu_features:3dnow amd3dnow)
+            $(option_enable amd64_cpu_features:3dnowext amd3dnowext)
+            $(option_enable amd64_cpu_features:ssse3)
+            $(option_enable amd64_cpu_features:avx)
+        )
+    elif option platform:x86; then
+        myconf+=(
+            --enable-yasm
+            $(option_enable x86_cpu_features:3dnow amd3dnow)
+            $(option_enable x86_cpu_features:3dnowext amd3dnowext)
+            $(option_enable x86_cpu_features:mmx)
+            $(option_enable x86_cpu_features:sse)
+            $(option_enable x86_cpu_features:ssse3)
+            $(option_enable x86_cpu_features:avx)
+        )
+    fi
+
+    myconf+=(
+        $(option_enable ppc_cpu_features:altivec)
+    )
+
+    myconf+=(
+        --cc="${CC}"
+        --prefix=/usr
+        --mandir=/usr/share/man
+        --libdir=/usr/${LIBDIR}
+        --shlibdir=/usr/${LIBDIR}
+
+        # licences
+        --enable-gpl
+        --enable-version3 # LGPL-3
+        --enable-nonfree
+
+        # hard enable
+        --enable-avconv
+        --enable-bzlib
+        --enable-pthreads
+        --enable-zlib
+
+        # system related
+        --enable-shared
+        --disable-debug
+        --disable-optimizations # optimizations is just a stupid way of enabling -O3 -fomit-frame-pointer
+
+        # hooverish upstream
+        --disable-libfaac
+
+        ### OPTIONS
+        $(option_enable !gnutls openssl)
+        $(option_enable X x11grab)
+        $(option_enable aac libvo-aacenc)
+        $(option_enable cd libcdio)
+        $(option_enable dirac libschroedinger)
+        $(option_enable doc)
+        $(option_enable frei0r)
+        $(option_enable gnutls)
+        $(option_enable gsm libgsm)
+        $(option_enable h264 libx264)
+        $(option_enable ieee1394 libdc1394)
+        $(option_enable jpeg2000 libopenjpeg)
+        $(option_enable mp3 libmp3lame)
+        $(option_enable opencore libopencore-amrnb)
+        $(option_enable opencore libopencore-amrwb)
+        $(option_enable opencore libvo-amrwbenc)
+        $(option_enable opencv libopencv)
+        $(option_enable player avplay)
+        $(option_enable pulseaudio libpulse)
+        $(option_enable speex libspeex)
+        $(option_enable theora libtheora)
+        $(option_enable truetype libfreetype)
+        $(option_enable va vaapi)
+        $(option_enable vdpau)
+        $(option_enable vorbis libvorbis)
+        $(option_enable vp8 libvpx)
+        $(option_enable xavs libxavs)
+    )
+
+    if ever at_least 9; then
+        myconf+=(
+            --optflags="${CFLAGS}" # respect user cflags and avoid -O3 -g
+
+            --enable-avresample
+
+            $(option_enable ilbc libilbc)
+            $(option_enable opus libopus)
+        )
+
+        # We hard enable mmx, mmxext, sse, sse2, sse3 on amd64, as all CPUs have them
+        if option platform:amd64; then
+            myconf+=(
+                --enable-mmxext
+                --enable-sse2
+                --enable-sse3
+                $(option_enable amd64_cpu_features:fma4)
+                $(option_enable amd64_cpu_features:sse4.1 sse4)
+                $(option_enable amd64_cpu_features:sse4.2 sse42)
+            )
+        elif option platform:x86; then
+            myconf+=(
+                $(option_enable x86_cpu_features:fma4)
+                $(option_enable x86_cpu_features:mmxext)
+                $(option_enable x86_cpu_features:sse2)
+                $(option_enable x86_cpu_features:sse3)
+                $(option_enable x86_cpu_features:sse4.1 sse4)
+                $(option_enable x86_cpu_features:sse4.2 sse42)
+            )
+        fi
+    else
+        myconf+=(
+            --extra-cflags="${CFLAGS}" # respect user cflags and avoid -O3 -g
+
+            # this is deprecated but still needed by many applications, so
+            # we keep it enabled for now
+            --enable-postproc
+
+            $(option_enable nut libnut)
+            $(option_enable rtmp librtmp)
+        )
+
+        # We hard enable mmx and sse on amd64, as all CPUs have them
+        if option platform:amd64; then
+            myconf+=(
+                --enable-mmx2
+            )
+        elif option platform:x86; then
+            myconf+=(
+                $(option_enable x86_cpu_features:mmx2)
+            )
+        fi
+
+    fi
+
+    edo ./configure "${myconf[@]}"
+}
+

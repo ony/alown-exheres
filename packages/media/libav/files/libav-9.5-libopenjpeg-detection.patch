@@ -1,0 +1,29 @@
+Source: written by Pierre Lejeune <superheron@gmail.com>, for Exherbo
+Upstream: submitted, https://bugzilla.libav.org/show_bug.cgi?id=387
+Reason: Fix libopenjpeg detection
+
+From 20828089f2f0e5f6779d25eb19cb00f4096d0d56 Mon Sep 17 00:00:00 2001
+From: Johannes Nixdorf <mixi@exherbo.org>
+Date: Sat, 10 Nov 2012 13:53:33 +0100
+Subject: [PATCH] configure: fix openjpeg detection
+
+---
+ configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index e87a326..71f056a 100755
+--- a/configure
++++ b/configure
+@@ -3473,7 +3473,7 @@ enabled libmp3lame && require  "libmp3lame >= 3.98.3" lame/lame.h lame_set_VBR_q
+ enabled libopencore_amrnb  && require libopencore_amrnb opencore-amrnb/interf_dec.h Decoder_Interface_init -lopencore-amrnb
+ enabled libopencore_amrwb  && require libopencore_amrwb opencore-amrwb/dec_if.h D_IF_init -lopencore-amrwb
+ enabled libopencv  && require_pkg_config opencv opencv/cv.h cvCreateImageHeader
+-enabled libopenjpeg && require libopenjpeg openjpeg.h opj_version -lopenjpeg
++enabled libopenjpeg && require_pkg_config libopenjpeg openjpeg.h opj_version
+ enabled libopus    && require_pkg_config opus opus_multistream.h opus_multistream_decoder_create
+ enabled libpulse && require_pkg_config libpulse-simple pulse/simple.h pa_simple_new
+ enabled librtmp    && require_pkg_config librtmp librtmp/rtmp.h RTMP_Socket
+-- 
+1.8.0.3
+
