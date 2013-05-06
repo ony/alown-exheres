@@ -1,0 +1,56 @@
+# Copyright 2011 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+require cmake
+
+SUMMARY="A high performance 3D graphics toolkit"
+HOMEPAGE="http://wwww.openscenegraph.org/"
+DOWNLOADS="http://www.openscenegraph.org/downloads/stable_releases/${PNV}/source/${PNV}.zip"
+
+LICENCES="LGPL"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="
+    jpeg2000 openexr gif curl xine ffmpeg qt4 svg sdl
+    poppler [[ description = [ Plugin to support PDF documents ] ]]
+    vnc [[ description = [ VNC (Virtual Network Computing) support for vnc clinet plugin ] ]]
+"
+
+DEPENDENCIES="
+    build+run:
+        media-libs/tiff
+        media-libs/jpeg
+        media-libs/libpng
+        media-libs/openal
+        media-libs/freetype
+        jpeg2000? ( media-libs/jasper )
+        openexr? ( media-libs/openexr )
+        gif? ( media-libs/giflib )
+        curl? ( net-misc/curl )
+        xine? ( media-libs/xine-lib )
+        ffmpeg? ( media/ffmpeg[>=1.0] )
+        qt4? ( x11-libs/qt:4 )
+        svg? ( gnome-desktop/librsvg:2 )
+        poppler? ( app-text/poppler )
+        vnc? ( net-libs/libvncserver )
+        sdl? ( media-libs/SDL )
+        x11-libs/libSM
+        x11-libs/libXext
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+CMAKE_SRC_CONFIGURE_OPTION_DISABLE_FINDS=(
+    "jpeg2000 Jasper"
+    OpenEXR
+    "gif GIFLIB"
+    FFmpeg
+    CURL
+    Xine
+    Qt4
+    "svg RSVG"
+    "poppler Poppler-glib"
+    "vnc LibVNCServer"
+    SDL
+)
+
