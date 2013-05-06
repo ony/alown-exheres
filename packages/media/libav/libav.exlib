@@ -7,7 +7,7 @@
 #   - Figure out licences (e.g. configure options to switch to (l)gpl3)
 #   - maybe a bindist flag?
 
-require easy-multibuild
+require easy-multibuild [ multiunpack=true work=${PNV} ]
 
 export_exlib_phases pkg_setup src_configure src_test
 
