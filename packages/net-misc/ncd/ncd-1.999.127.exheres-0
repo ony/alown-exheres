@@ -21,7 +21,4 @@ BUGS_TO="ali@lown.me.uk"
 
 CMAKE_SRC_COMPILE_PARAMS="-DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_NCD=1"
 
-src_prepare()
-{
-    cd "badvpn-${PV}"
-}
+WORK="${WORKBASE}/badvpn-${PV}
