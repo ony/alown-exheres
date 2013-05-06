@@ -20,3 +20,6 @@ DEPENDENCIES="
 BUGS_TO="ali@lown.me.uk"
 
 CMAKE_SRC_COMPILE_PARAMS="-DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_NCD=1"
+
+#Package name really badvpn
+WORK="badvpn-${PV}"
