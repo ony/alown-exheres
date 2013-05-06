@@ -1,9 +1,14 @@
 # Copyright 2011 Ali Lown
 # Distributed under the terms of the GNU General Public License v2
 
+require cmake
+
 SUMMARY="Free, open source, multiplatform flight simulator"
 HOMEPAGE="http://www.flightgear.org/"
-DOWNLOADS="ftp://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Source/flightgear-${PV}.tar.bz2"
+DOWNLOADS="
+    ftp://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Source/flightgear-${PV}.tar.bz2
+    ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-${PV}.tar.bz2
+"
 
 LICENCES="GPL"
 SLOT="0"
@@ -22,15 +27,21 @@ DEPENDENCIES="
             description = [ New naming system. Remove old SimGear package manually ]
             resolution = uninstall-blocked-before
             ]]
-        dev-games/simgear[>=2.4.0]
+        dev-games/simgear[=${PV}] [[
+            description = [ According to official site versions should match ]
+        ]]
         media-libs/plib
 
 "
 
 BUGS_TO="ali@lown.me.uk"
 
-DEFAULT_SRC_CONFIGURE_PARAMS=( )
-DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+FG_DATA_DIR="/usr/share/${PN}-data-${PV}"
+CMAKE_SRC_CONFIGURE_PARAMS=( -DFG_DATA_DIR:PATH="${FG_DATA_DIR}" )
 
+src_install() {
+    cmake_src_install
+    insinto "${FG_DATA_DIR}"
+    doins -r "${WORKBASE}/data"/*
+}
 
