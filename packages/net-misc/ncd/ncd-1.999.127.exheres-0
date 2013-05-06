@@ -5,7 +5,7 @@ SUMMARY="NCD network scripting language"
 DESCRIPTION="A turing-complete scripting language for setting up and controlling your networking"
 HOMEPAGE="https://code.google.com/p/badvpn/"
 
-require googlecode [ project="badvpn" suffix = "tar.gz" ] cmake
+require googlecode [ project="badvpn" suffix="tar.gz" ] cmake
 
 LICENCES="BSD"
 SLOT="0"
