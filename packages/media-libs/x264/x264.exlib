@@ -50,7 +50,5 @@ configure_one_multibuild() {
 
     # --disable-visualize doesn't exist so don't use option_enable
     option visualisation && myconf+=( "--enable-visualize" )
-
-    STRIP=/bin/true edo ./configure "${myconf[@]}"
 }
 
