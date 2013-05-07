@@ -348,24 +348,6 @@ configure_one_multibuild() {
         fi
 
     fi
-}
 
-compile_one_multibuild() {
-    default
-
-    if multibuild_default_target C && option doc; then
-        emake doc
-        edo find doc/doxygen/html -type f -print0 | xargs -0 sed -i -e "s:${WORK}::g" ||
-            die "sed to strip ${WORK} from api docs failed"
-    fi
-}
-
-install_one_multibuild() {
-    default
-
-    if multibuild_default_target C && option doc; then
-        docinto html
-        dodoc -r doc/doxygen/html*
-        docinto
-    fi
+    econf "${myconf[@]}"
 }
