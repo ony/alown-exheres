@@ -239,7 +239,6 @@ configure_one_multibuild() {
     )
 
     myconf+=(
-        --host="${CHOST}"
         --cc="${CC}"
         --prefix=/usr
         --mandir=/usr/share/man
@@ -350,5 +349,6 @@ configure_one_multibuild() {
 
     fi
 
-    econf "${myconf[@]}"
+
+    edo ./configure "${myconf[@]}"
 }
