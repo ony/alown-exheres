@@ -30,10 +30,12 @@ if ! ever is_scm ; then
     WORK="${WORKBASE}/${MY_PNV}"
 fi
 
-prepare_one_multibuild() {
+src_prepare() {
     # x264 provides its own configure
     edo sed -e "/^CC=/s:gcc:${CC}:" \
             -i "${WORK}/configure"
+
+    default
 }
 
 configure_one_multibuild() {
@@ -50,5 +52,7 @@ configure_one_multibuild() {
 
     # --disable-visualize doesn't exist so don't use option_enable
     option visualisation && myconf+=( "--enable-visualize" )
+
+    default
 }
 
