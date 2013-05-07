@@ -34,15 +34,26 @@ src_prepare() {
     # x264 provides its own configure
     edo sed -e "/^CC=/s:gcc:${CC}:" \
             -i "${WORK}/configure"
-
     default
 }
 
-DEFAULT_SRC_CONFIGURE_PARAMS=(
-    --enable-shared \
-    --disable-ffms \
-    --disable-gpac \
-    --disable-lavf \
-    --disable-swscale \
-    $(option_with visualisation visualize)
-)
+configure_one_multibuild() {
+    local myconf=(
+        --host=${CHOST}
+        --libdir=/usr/${LIBDIR}
+        --prefix=/usr
+        --enable-shared
+        --disable-ffms
+        --disable-gpac
+        --disable-lavf
+        --disable-swscale
+    )
+
+    # --disable-visualize doesn't exist so don't use option_enable
+    option visualisation && myconf+=( "--enable-visualize" )
+
+    econf \
+        $(for s in "${myconf[@]}"; do \
+            option ${s}; \
+        done)
+}
