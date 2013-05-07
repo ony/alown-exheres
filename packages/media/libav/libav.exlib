@@ -55,7 +55,7 @@ MYOPTIONS="doc h264 truetype
 DEPENDENCIES="
     build:
         app-arch/xz[multibuild_c:*(-)?]
-        doc? ( app-text/texi2html )[multibuild_c:*(-)?]
+        doc? ( app-text/texi2html[multibuild_c:*(-)?] )
         platform:amd64? ( dev-lang/yasm[multibuild_c:*(-)?] )
         platform:x86? ( dev-lang/yasm[multibuild_c:*(-)?] )
     build+run:
