@@ -23,6 +23,8 @@ UPSTREAM_CHANGELOG="http://libav.org/releases/${PNV}.changelog"
 
 SLOT="0"
 
+RESTRICT="test"
+
 MYOPTIONS="doc h264 truetype
     X            [[ description = [ Enable support for X11 grabbing ] ]]
     aac          [[ description = [ Additional AAC encoder plugin (libav's encoder is experimental) ] ]]
