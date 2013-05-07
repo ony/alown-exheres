@@ -39,10 +39,10 @@ src_prepare() {
 }
 
 DEFAULT_SRC_CONFIGURE_PARAMS=(
-    --enable-shared
-    --disable-ffms
-    --disable-gpac
-    --disable-lavf
-    --disable-swscale
+    --enable-shared \
+    --disable-ffms \
+    --disable-gpac \
+    --disable-lavf \
+    --disable-swscale \
     $(option_with visualisation visualize)
 )
