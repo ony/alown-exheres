@@ -9,7 +9,7 @@
 
 require easy-multibuild [ multiunpack=true work=${PNV} ]
 
-export_exlib_phases pkg_setup src_configure src_test
+export_exlib_phases pkg_setup src_test
 
 SUMMARY="A complete solution to record, convert and stream audio and video"
 
@@ -208,7 +208,7 @@ libav_src_test() {
 }
 
 # grayscale support is disabled
-libav_src_configure() {
+configure_one_multibuild() {
     local myconf=()
 
     # We hard enable mmx, mmxext, sse, sse2, sse3 on amd64, as all CPUs have them
@@ -348,7 +348,24 @@ libav_src_configure() {
         fi
 
     fi
-
-    edo ./configure "${myconf[@]}"
 }
 
+compile_one_multibuild() {
+    default
+
+    if multibuild_default_target C && option doc; then
+        emake doc
+        edo find doc/doxygen/html -type f -print0 | xargs -0 sed -i -e "s:${WORK}::g" ||
+            die "sed to strip ${WORK} from api docs failed"
+    fi
+}
+
+install_one_multibuild() {
+    default
+
+    if multibuild_default_target C && option doc; then
+        docinto html
+        dodoc -r doc/doxygen/html*
+        docinto
+    fi
+}
