@@ -54,53 +54,53 @@ MYOPTIONS="doc h264 truetype
 
 DEPENDENCIES="
     build:
-        app-arch/xz
-        doc? ( app-text/texi2html )
-        platform:amd64? ( dev-lang/yasm )
-        platform:x86? ( dev-lang/yasm )
+        app-arch/xz[multibuild_c:*(-)?]
+        doc? ( app-text/texi2html )[multibuild_c:*(-)?]
+        platform:amd64? ( dev-lang/yasm[multibuild_c:*(-)?] )
+        platform:x86? ( dev-lang/yasm[multibuild_c:*(-)?] )
     build+run:
-        app-arch/bzip2
-        sys-libs/zlib
-        sys-sound/alsa-lib
-        aac? ( media-libs/vo-aacenc )
-        cd? ( dev-libs/libcdio )
-        dirac? ( media-libs/schroedinger )
-        frei0r? ( media-plugins/frei0r-plugins )
-        gnutls? ( dev-libs/gnutls )
-       !gnutls? ( dev-libs/openssl )
-        gsm? ( media-libs/gsm )
-        h264? ( media-libs/x264[>=20120104] )
+        app-arch/bzip2[multibuild_c:*(-)?]
+        sys-libs/zlib[multibuild_c:*(-)?]
+        sys-sound/alsa-lib[multibuild_c:*(-)?]
+        aac? ( media-libs/vo-aacenc[multibuild_c:*(-)?] )
+        cd? ( dev-libs/libcdio[multibuild_c:*(-)?] )
+        dirac? ( media-libs/schroedinger[multibuild_c:*(-)?] )
+        frei0r? ( media-plugins/frei0r-plugins[multibuild_c:*(-)?] )
+        gnutls? ( dev-libs/gnutls[multibuild_c:*(-)?] )
+       !gnutls? ( dev-libs/openssl[multibuild_c:*(-)?] )
+        gsm? ( media-libs/gsm[multibuild_c:*(-)?] )
+        h264? ( media-libs/x264[>=20120104][multibuild_c:*(-)?] )
         ieee1394? (
-            media-libs/libdc1394:2
-            media-libs/libraw1394
+            media-libs/libdc1394:2[multibuild_c:*(-)?]
+            media-libs/libraw1394[multibuild_c:*(-)?]
         )
-        jpeg2000? ( media-libs/OpenJPEG )
-        mp3? ( media-sound/lame[>=3.98.3] )
+        jpeg2000? ( media-libs/OpenJPEG[multibuild_c:*(-)?] )
+        mp3? ( media-sound/lame[>=3.98.3][multibuild_c:*(-)?] )
         opencore? (
-            media-libs/opencore-amr
-            media-libs/vo-amrwbenc
+            media-libs/opencore-amr[multibuild_c:*(-)?]
+            media-libs/vo-amrwbenc[multibuild_c:*(-)?]
         )
-        opencv? ( media-libs/opencv )
-        player? ( media-libs/SDL[>=1.2.1] )
-        pulseaudio? ( media-sound/pulseaudio )
-        speex? ( media-libs/speex )
+        opencv? ( media-libs/opencv[multibuild_c:*(-)?] )
+        player? ( media-libs/SDL[>=1.2.1][multibuild_c:*(-)?] )
+        pulseaudio? ( media-sound/pulseaudio[multibuild_c:*(-)?] )
+        speex? ( media-libs/speex[multibuild_c:*(-)?] )
         theora? (
-            media-libs/libtheora
-            media-libs/libogg
+            media-libs/libtheora[multibuild_c:*(-)?]
+            media-libs/libogg[multibuild_c:*(-)?]
         )
-        truetype? ( media-libs/freetype:2 )
-        va? ( x11-libs/libva[>=1.0.6] )
-        vdpau? ( x11-libs/libvdpau[>=0.2] )
+        truetype? ( media-libs/freetype:2[multibuild_c:*(-)?] )
+        va? ( x11-libs/libva[>=1.0.6][multibuild_c:*(-)?] )
+        vdpau? ( x11-libs/libvdpau[>=0.2][multibuild_c:*(-)?] )
         vorbis? (
-            media-libs/libogg
-            media-libs/libvorbis
+            media-libs/libogg[multibuild_c:*(-)?]
+            media-libs/libvorbis[multibuild_c:*(-)?]
         )
         X? (
-            x11-libs/libX11
-            x11-libs/libXext
-            x11-libs/libXfixes
+            x11-libs/libX11[multibuild_c:*(-)?]
+            x11-libs/libXext[multibuild_c:*(-)?]
+            x11-libs/libXfixes[multibuild_c:*(-)?]
         )
-        xavs? ( media-libs/xavs )
+        xavs? ( media-libs/xavs[multibuild_c:*(-)?] )
 
         !media/ffmpeg [[ description = [ This is a fork of ffmpeg and uses the same file names ] ]]
 "
@@ -138,13 +138,13 @@ if ever at_least 9; then
     DEPENDENCIES+="
         build+run:
             gnutls? (
-                dev-libs/gmp:=
-                dev-libs/libgcrypt
-                dev-libs/nettle
+                dev-libs/gmp:=[multibuild_c:*(-)?]
+                dev-libs/libgcrypt[multibuild_c:*(-)?]
+                dev-libs/nettle[multibuild_c:*(-)?]
             )
-            ilbc?   ( media-libs/ilbc )
-            opus?   ( media-libs/opus )
-            vp8? ( media-libs/libvpx[>=0.9.6] )
+            ilbc?   ( media-libs/ilbc[multibuild_c:*(-)?] )
+            opus?   ( media-libs/opus[multibuild_c:*(-)?] )
+            vp8? ( media-libs/libvpx[>=0.9.6][multibuild_c:*(-)?] )
     "
 else
     MYOPTIONS+="
@@ -170,9 +170,9 @@ else
     "
     DEPENDENCIES+="
         build+run:
-            rtmp? ( media-video/rtmpdump[>=2.2] )
-            nut?  ( media-libs/libnut )
-            vp8? ( media-libs/libvpx[>=0.9.1] )
+            rtmp? ( media-video/rtmpdump[>=2.2][multibuild_c:*(-)?] )
+            nut?  ( media-libs/libnut[multibuild_c:*(-)?] )
+            vp8? ( media-libs/libvpx[>=0.9.1][multibuild_c:*(-)?] )
 
             !media-libs/libpostproc [[ description = [ libpostproc was split from libav ] ]]
     "
