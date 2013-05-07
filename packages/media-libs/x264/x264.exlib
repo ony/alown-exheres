@@ -52,8 +52,5 @@ configure_one_multibuild() {
     # --disable-visualize doesn't exist so don't use option_enable
     option visualisation && myconf+=( "--enable-visualize" )
 
-    econf \
-        $(for s in "${myconf[@]}"; do \
-            option ${s}; \
-        done)
+    econf "${myconf[@]}"
 }
