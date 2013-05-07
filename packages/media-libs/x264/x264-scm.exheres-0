@@ -1,0 +1,7 @@
+# Copyright 2009 Michael Forney <michael@obberon.com>
+# Distributed under the terms of the GNU General Public License v2
+
+require x264
+
+PLATFORMS="~amd64 ~ppc64 ~x86"
+

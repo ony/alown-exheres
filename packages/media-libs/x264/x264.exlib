@@ -1,0 +1,56 @@
+# Copyright 2008 Anders Ossowicki <arkanoid@exherbo.org>
+# Distributed under the terms of the GNU General Public License v2
+
+if ever is_scm ; then
+    SCM_REPOSITORY="git://git.videolan.org/${PN}.git"
+    require scm-git
+else
+    MY_PNV="${PN}-snapshot-${PV}-2245-stable"
+    DOWNLOADS="http://download.videolan.org/pub/videolan/${PN}/snapshots/${MY_PNV}.tar.bz2"
+fi
+
+require easy-multibuild
+
+SUMMARY="Library for encoding H264/AVC video streams"
+HOMEPAGE="http://www.videolan.org/developers/${PN}.html"
+
+LICENCES="GPL-2 GPL-3"
+SLOT="0"
+MYOPTIONS="visualisation [[ description = [ Visualize the encoding process ] ]]
+platform: amd64 x86"
+
+DEPENDENCIES="
+    build:
+        platform:amd64? ( dev-lang/yasm[>=1.0.0][multibuild_c:*(-)?] )
+        platform:x86? ( dev-lang/yasm[>=1.0.0][multibuild_c:*(-)?] )
+    build+run:
+        visualisation? ( x11-libs/libX11[multibuild_c:*(-)?] )"
+
+if ! ever is_scm ; then
+    WORK="${WORKBASE}/${MY_PNV}"
+fi
+
+prepare_one_multibuild() {
+    # x264 provides its own configure
+    edo sed -e "/^CC=/s:gcc:${CC}:" \
+            -i "${WORK}/configure"
+}
+
+configure_one_multibuild() {
+    local myconf=(
+        --host=${CHOST}
+        --libdir=/usr/${LIBDIR}
+        --prefix=/usr
+        --enable-shared
+        --disable-ffms
+        --disable-gpac
+        --disable-lavf
+        --disable-swscale
+    )
+
+    # --disable-visualize doesn't exist so don't use option_enable
+    option visualisation && myconf+=( "--enable-visualize" )
+
+    STRIP=/bin/true edo ./configure "${myconf[@]}"
+}
+
