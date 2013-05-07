@@ -17,7 +17,7 @@ HOMEPAGE="http://www.videolan.org/developers/${PN}.html"
 LICENCES="GPL-2 GPL-3"
 SLOT="0"
 MYOPTIONS="visualisation [[ description = [ Visualize the encoding process ] ]]
-platform: amd64 x86"
+platform: amd64 x86 multibuild_c: 32 64"
 
 DEPENDENCIES="
     build:
