@@ -1,0 +1,25 @@
+--- CMakeLists.txt	2013-05-15 11:55:52.192139904 +0100
++++ ../b/CMakeLists.txt	2013-05-15 11:54:53.969093565 +0100
+@@ -46,14 +46,14 @@
+ 
+ # define build defaults
+ build_switch(EXAMPLES "build example programs" ON)
+-build_switch(TESTS "build some other example programs" OFF)
+-build_switch(SERVER "build badvpn-server" OFF)
+-build_switch(CLIENT "build badvpn-client" OFF)
+-build_switch(FLOODER "build badvpn-flooder" OFF)
+-build_switch(TUN2SOCKS "build badvpn-tun2socks" OFF)
+-build_switch(UDPGW "build badvpn-udpgw" OFF)
+-build_switch(NCD "build badvpn-ncd" ON)
+-build_switch(TUNCTL "build badvpn-tunctl" OFF)
++build_switch(TESTS "build some other example programs" ON)
++build_switch(SERVER "build badvpn-server" ${ON_IF_NOT_EMSCRIPTEN})
++build_switch(CLIENT "build badvpn-client" ${ON_IF_NOT_EMSCRIPTEN})
++build_switch(FLOODER "build badvpn-flooder" ${ON_IF_NOT_EMSCRIPTEN})
++build_switch(TUN2SOCKS "build badvpn-tun2socks" ${ON_IF_NOT_EMSCRIPTEN})
++build_switch(UDPGW "build badvpn-udpgw" ${ON_IF_NOT_EMSCRIPTEN})
++build_switch(NCD "build badvpn-ncd" ${ON_IF_LINUX_OR_EMSCRIPTEN})
++build_switch(TUNCTL "build badvpn-tunctl" ${ON_IF_LINUX})
+ build_switch(DOSTEST "build dostest-server and dostest-attacker" OFF)
+ 
+ if (BUILD_NCD AND NOT (CMAKE_SYSTEM_NAME STREQUAL "Linux"))
