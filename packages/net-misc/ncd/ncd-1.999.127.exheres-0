@@ -19,6 +19,6 @@ DEPENDENCIES="
 
 BUGS_TO="ali@lown.me.uk"
 
-DEFAULT_SRC_PREPARE_PATCHES="cmakelists_ncd.patch"
+DEFAULT_SRC_PREPARE_PATCHES="${FILES}/cmakelists_ncd.patch"
 
 WORK="${WORKBASE}/badvpn-${PV}"
