@@ -1,0 +1,23 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+require 'cmake'
+
+SUMMARY="GNU Radio Core"
+DESCRIPTION="GNU Radio is a FOSS SDK to provide signal processing blocks to implement software
+radios."
+HOMEPAGE="http://gnuradio.org"
+DOWNLOADS="http://gnuradio.org/releases/gnuradio/gnuradio-3.7.0.tar.gz"
+
+LICENCES="GPL-3"
+SLOT="0"
+PLATFORMS="amd64"
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/boost
+        dev-cpp/cppunit
+        sci-libs/fftw
+"
+
+BUGS_TO="ali@lown.me.uk"
