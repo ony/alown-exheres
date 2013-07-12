@@ -18,6 +18,8 @@ DEPENDENCIES="
         dev-libs/boost
         dev-cpp/cppunit
         sci-libs/fftw
+        dev-lang/python
+        dev-python/Cheetah
 "
 
 BUGS_TO="ali@lown.me.uk"
