@@ -8,6 +8,7 @@ HOMEPAGE="http://pamusb.org"
 
 SCM_REPOSITORY="https://github.com/aluzzardi/pam_usb.git"
 DOWNLOADS=""
+require scm-git
 
 LICENCES="GPL2"
 SLOT="0"
