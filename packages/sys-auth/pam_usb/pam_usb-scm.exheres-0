@@ -1,0 +1,30 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Hardware authentication using ordinary USB Flash Drives"
+DESCRIPTION="pam_usb allows password-less authentication, device auto probing, two-factor
+authentication and is non-intrusive on the USB sticks."
+HOMEPAGE="http://pamusb.org"
+
+SCM_REPOSITORY="https://github.com/aluzzardi/pam_usb.git"
+DOWNLOADS=""
+
+LICENCES="GPL2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/libxml2
+        sys-libs/pam
+        sys-apps/udisks
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+
+
