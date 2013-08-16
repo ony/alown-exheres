@@ -19,7 +19,7 @@ DEPENDENCIES="
     build+run:
         dev-libs/libxml2
         sys-libs/pam
-        sys-apps/udisks
+        sys-apps/udisks:0
 "
 
 BUGS_TO="ali@lown.me.uk"
