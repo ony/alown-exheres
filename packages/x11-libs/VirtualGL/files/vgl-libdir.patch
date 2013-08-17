@@ -6,7 +6,7 @@ diff -rupN a/CMakeLists.txt b/CMakeLists.txt
  	endif()
  	set(DEFAULT_VGL_INCDIR ${CMAKE_INSTALL_PREFIX}/include)
 -	set(DEFAULT_VGL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib)
-+  set(DEFAULT_VGL_LIBDIR ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
++  set(DEFAULT_VGL_LIBDIR ${LIB_INSTALL_DIR})
  
  	set(VGL_FAKELIBDIR ${DEFAULT_VGL_FAKELIBDIR} CACHE PATH
  		"Directory into which the libGL symlinks for Chromium should be installed (default: ${DEFAULT_VGL_FAKELIBDIR})")
