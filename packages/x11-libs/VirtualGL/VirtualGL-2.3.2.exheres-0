@@ -8,7 +8,7 @@ to run OpenGL applications with full 3D hardware acceleration. Some remote displ
 the ability to run OpenGL applications at all.
 "
 HOMEPAGE="http://www.virtualgl.org"
-require sourceforge [ suffix=tar.gz project=virtualgl ]
+require sourceforge [ suffix=tar.gz project=virtualgl ] cmake
 
 LICENCES="LGPL2.1"
 SLOT="0"
