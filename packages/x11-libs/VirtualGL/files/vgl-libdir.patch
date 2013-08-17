@@ -1,0 +1,12 @@
+diff -rupN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2012-10-02 03:17:09.000000000 +0100
++++ b/CMakeLists.txt	2013-08-17 13:45:21.974561224 +0100
+@@ -266,7 +266,7 @@ if(VGL_BUILDSERVER)
+ 		set(DEFAULT_VGL_FAKELIBDIR ${CMAKE_INSTALL_PREFIX}/fakelib)
+ 	endif()
+ 	set(DEFAULT_VGL_INCDIR ${CMAKE_INSTALL_PREFIX}/include)
+-	set(DEFAULT_VGL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib)
++  set(DEFAULT_VGL_LIBDIR ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
+ 
+ 	set(VGL_FAKELIBDIR ${DEFAULT_VGL_FAKELIBDIR} CACHE PATH
+ 		"Directory into which the libGL symlinks for Chromium should be installed (default: ${DEFAULT_VGL_FAKELIBDIR})")

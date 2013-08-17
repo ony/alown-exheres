@@ -20,6 +20,8 @@ DEPENDENCIES="
         media-libs/libjpeg-turbo
 "
 
+DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/vgl-libdir.patch")
+
 BUGS_TO="ali@lown.me.uk"
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( )
