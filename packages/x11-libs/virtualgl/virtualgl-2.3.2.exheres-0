@@ -1,0 +1,29 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="VirtualGL 3D Remote display"
+DESCRIPTION="
+VirtualGL is an open source package that gives any Unix or Linux remote display software the ability
+to run OpenGL applications with full 3D hardware acceleration. Some remote display software lacks
+the ability to run OpenGL applications at all.
+"
+HOMEPAGE="http://www.virtualgl.org"
+require sourceforge [ suffix=tar.gz ]
+
+LICENCES="LGPL2.1"
+SLOT="0"
+PLATFORMS="~amd64"
+
+DEPENDENCIES="
+    build+run:
+        sys-devel/cmake
+        media-libs/libjpeg-turbo
+"
+
+BUGS_TO="ali@lown.me.uk"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
+
+
