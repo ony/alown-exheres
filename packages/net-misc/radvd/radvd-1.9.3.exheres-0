@@ -1,0 +1,23 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Linux IPv6 Router Advertisment Daemon"
+DESCRIPTION="
+The router advertisement daemon (radvd) is run by Linux or BSD systems acting as IPv6 routers. It
+sends Router Advertisement messages, specified by RFC 2461, to a local Ethernet LAN periodically and
+when requested by a node sending a Router Solicitation message. These messages are required for IPv6
+stateless autoconfiguration.
+"
+HOMEPAGE="http://www.litech.org/radvd/"
+DOWNLOADS="http://www.litech.org/radvd/dist/${PNV}.tar.gz"
+
+LICENCES="BSD"
+SLOT="0"
+PLATFORMS="~amd64"
+
+DEPENDENCIES="
+    build+run:
+      dev-libs/libdaemon
+"
+
+BUGS_TO="ali@lown.me.uk"
