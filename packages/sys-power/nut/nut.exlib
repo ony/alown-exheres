@@ -60,7 +60,7 @@ DEFAULT_SRC_CONFIGURE_PARAMS=(
     --with-group=nut
     --with-htmlpath=/usr/share/nut/html
     --with-logfacility=LOG_DAEMON
-    --with-pidpath=/var/run/nut
+    --with-pidpath=/run/nut
     --with-port=3493
     --with-statepath=/var/lib/nut
     --with-udev-dir=/usr/${LIBDIR}/udev
@@ -104,9 +104,9 @@ nut_src_install() {
     edo chown root:root "${IMAGE}"/etc/nut/{ups,upssched}.conf
     edo chmod 0644 "${IMAGE}"/etc/nut/{ups,upssched}.conf
 
-    keepdir /var/run/nut
-    edo chown nut:nut "${IMAGE}"/var/run/nut
-    edo chmod 0775 "${IMAGE}"/var/run/nut
+    keepdir /run/nut
+    edo chown nut:nut "${IMAGE}"/run/nut
+    edo chmod 0775 "${IMAGE}"/run/nut
 
     option bash-completion && dobashcompletion "${WORK}"/scripts/misc/nut.bash_completion
 
