@@ -104,8 +104,6 @@ nut_src_install() {
     edo chown root:root "${IMAGE}"/etc/nut/{ups,upssched}.conf
     edo chmod 0644 "${IMAGE}"/etc/nut/{ups,upssched}.conf
 
-    edo rmdir "${IMAGE}/run"
-
     option bash-completion && dobashcompletion "${WORK}"/scripts/misc/nut.bash_completion
 
     edo rmdir "${IMAGE}"/usr/cgi-bin
