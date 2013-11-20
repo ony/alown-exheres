@@ -14,7 +14,7 @@ Network UPS Tools (also known as NUT) is an extremely powerful and versatile
 client/server based approach to UPS monitoring. Products from a wide range of
 vendors (APC, Belkin, Best Power, MGE, Tripp-Lite, etc.) are supported. A shared
 UPS can be monitored by one host, notifcations being sent to the other hosts via
-authenticated TCP connections. A Web interface is available, as is a Windows client.
+authenticated TCP connections.
 "
 HOMEPAGE="http://www.networkupstools.org"
 DOWNLOADS="${HOMEPAGE}/source/${PV%.*}/${PNV}.tar.gz"
