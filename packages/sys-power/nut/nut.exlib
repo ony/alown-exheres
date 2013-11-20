@@ -1,0 +1,150 @@
+# Copyright 2011-2012 Wulf C. Krueger <philantrop@exherbo.org>
+# Distributed under the terms of the GNU General Public License v2
+
+require bash-completion
+
+export_exlib_phases src_install pkg_postinst
+
+myexparam nut_drivers[]
+exparam -v NUT_DRIVERS nut_drivers[@]
+
+SUMMARY="The Network UPS Tools (NUT) for monitoring UPS'"
+DESCRIPTION="
+Network UPS Tools (also known as NUT) is an extremely powerful and versatile
+client/server based approach to UPS monitoring. Products from a wide range of
+vendors (APC, Belkin, Best Power, MGE, Tripp-Lite, etc.) are supported. A shared
+UPS can be monitored by one host, notifcations being sent to the other hosts via
+authenticated TCP connections. A Web interface is available, as is a Windows client.
+"
+HOMEPAGE="http://www.networkupstools.org"
+DOWNLOADS="${HOMEPAGE}/source/${PV%.*}/${PNV}.tar.gz"
+
+BUGS_TO=""
+REMOTE_IDS="freshmeat:networkupstools"
+
+UPSTREAM_CHANGELOG="${HOMEPAGE}/source/${PV%.*}/ChangeLog"
+UPSTREAM_RELEASE_NOTES="${HOMEPAGE}/source/${PV%.*}/new-${PV}.txt"
+UPSTREAM_DOCUMENTATION="${HOMEPAGE}/doc/ [[ lang = en ]]"
+
+LICENCES="GPL-2 GPL-3"
+SLOT="0"
+MYOPTIONS="
+    baselayout
+    bash-completion
+    cgi [[ description = [ Add CGI script support ] ]]
+    ipv6
+    ssl
+    tcpd
+    nut_drivers: ${NUT_DRIVERS[*]}
+"
+
+DEPENDENCIES="
+    build+run:
+        sys-fs/udev[>=142]
+        cgi? ( media-libs/gd[>=2.0.35] )
+        ssl? ( dev-libs/openssl )
+        tcpd? ( sys-apps/tcp-wrappers )
+        user/nut
+        group/nut
+        group/uucp
+        nut_drivers:neon? ( net-misc/neon[>=0.28.4] )
+        nut_drivers:powerman? ( sys-power/powerman[>=2.3.5] )
+        nut_drivers:snmp? ( net/net-snmp )
+        nut_drivers:usb? ( dev-libs/libusb:0.1 )
+"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --datadir=/usr/share/nut
+    --datarootdir=/usr/share/nut
+    --sysconfdir=/etc/nut
+    --with-dev
+    --with-drvpath=/${LIBDIR}/nut
+    --with-group=nut
+    --with-htmlpath=/usr/share/nut/html
+    --with-logfacility=LOG_DAEMON
+    --with-pidpath=/var/run/nut
+    --with-port=3493
+    --with-statepath=/var/lib/nut
+    --with-udev-dir=/${LIBDIR}/udev
+    --with-user=nut
+    --without-hal
+    --without-snmp
+)
+
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(
+    cgi
+    "cgi cgipath /usr/share/nut/cgi"
+    ipv6
+    ssl
+    "tcpd wrap"
+    "${NUT_DRIVERS[@]/#/nut_drivers:}"
+)
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS=(
+    INSTALL
+    UPGRADING
+)
+
+nut_src_install() {
+    default
+
+    dodir sbin
+    dosym /${LIBDIR}/nut/upsdrvctl /sbin/upsdrvctl
+    dosym /${LIBDIR}/nut/upsdrvctl /usr/sbin/upsdrvctl
+
+    for i in "${IMAGE}"/etc/nut/*.sample ; do
+        edo mv "${i}" "${i/.sample/}"
+    done
+
+    dodoc docs/{FAQ,*.txt}
+    newdoc lib/README README.lib
+
+    docinto cables
+    dodoc docs/cables/*
+
+    if option baselayout ; then
+        newinitd "${FILES}"/${PN}-2.4.1-init.d-upsd upsd
+        newinitd "${FILES}"/${PN}-2.4.1-init.d-upsdrv upsdrv
+        newinitd "${FILES}"/${PN}-2.4.1-init.d-upsmon upsmon
+    fi
+
+    insinto /${LIBDIR}/udev/rules.d
+    newins scripts/udev/nut-usbups.rules 70-nut-usbups.rules
+    edo rm "${IMAGE}"/${LIBDIR}/udev/rules.d/52-nut-usbups.rules
+
+    keepdir /var/lib/nut
+    edo chown nut:nut "${IMAGE}"/var/lib/nut
+    edo chmod 0700 "${IMAGE}"/var/lib/nut
+
+    edo chown root:nut "${IMAGE}"/etc/nut/{upsd.conf,upsd.users,upsmon.conf}
+    edo chmod 0640 "${IMAGE}"/etc/nut/{upsd.conf,upsd.users,upsmon.conf}
+
+    edo chown root:root "${IMAGE}"/etc/nut/{ups,upssched}.conf
+    edo chmod 0644 "${IMAGE}"/etc/nut/{ups,upssched}.conf
+
+    keepdir /var/run/nut
+    edo chown nut:nut "${IMAGE}"/var/run/nut
+    edo chmod 0775 "${IMAGE}"/var/run/nut
+
+    option bash-completion && dobashcompletion "${WORK}"/scripts/misc/nut.bash_completion
+
+    if option cgi; then
+        edo chmod 0644 "${IMAGE}"/etc/nut/{{hosts,upsset}.conf,upsstats{,-single}.html}
+        edo chown root:root "${IMAGE}"/etc/nut/{{hosts,upsset}.conf,upsstats{,-single}.html}
+    else
+        edo rmdir "${IMAGE}"/usr/cgi-bin
+        edo rmdir "${IMAGE}"/usr/share/nut/html
+    fi
+
+    edo find "${IMAGE}"/usr/share/man -type d -empty -delete
+}
+
+nut_pkg_postinst() {
+    local cruft=( /etc/udev/rules.d/70-nut-usbups.rules )
+    for file in ${cruft[@]}; do
+        if test -f "${file}" ; then
+            nonfatal edo rm "${file}" || eerror "removing ${file} failed"
+        fi
+    done
+}
+
