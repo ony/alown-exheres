@@ -90,11 +90,8 @@ nut_src_install() {
         edo mv "${i}" "${i/.sample/}"
     done
 
-    dodoc docs/{FAQ,*.txt}
+    dodoc -r docs
     newdoc lib/README README.lib
-
-    docinto cables
-    dodoc docs/cables/*
 
     insinto /${LIBDIR}/udev/rules.d
     newins scripts/udev/nut-usbups.rules 70-nut-usbups.rules
