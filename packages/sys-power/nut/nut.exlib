@@ -94,10 +94,6 @@ nut_src_install() {
     dodoc -r docs
     newdoc lib/README README.lib
 
-    insinto /${LIBDIR}/udev/rules.d
-    newins scripts/udev/nut-usbups.rules 70-nut-usbups.rules
-    edo rm "${IMAGE}"/${LIBDIR}/udev/rules.d/52-nut-usbups.rules
-
     keepdir /var/lib/nut
     edo chown nut:nut "${IMAGE}"/var/lib/nut
     edo chmod 0700 "${IMAGE}"/var/lib/nut
