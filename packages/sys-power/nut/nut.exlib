@@ -49,11 +49,12 @@ DEPENDENCIES="
         nut_drivers:usb? ( dev-libs/libusb:0.1 )
 "
 
+#The systemd line is special due to a rather stupid sed in configure.in
 DEFAULT_SRC_CONFIGURE_PARAMS=(
     --datadir=/usr/share/nut
     --datarootdir=/usr/share/nut
     --sysconfdir=/etc/nut
-    --with-systemdsystemunitdir=/usr/lib64/systemd/system
+    --with-systemdsystemunitdir=lib/systemd/system
     --with-dev
     --with-drvpath=/${LIBDIR}/nut
     --with-group=nut
