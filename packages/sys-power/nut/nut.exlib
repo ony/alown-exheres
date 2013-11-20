@@ -54,7 +54,7 @@ DEFAULT_SRC_CONFIGURE_PARAMS=(
     --datadir=/usr/share/nut
     --datarootdir=/usr/share/nut
     --sysconfdir=/etc/nut
-    --with-systemdsystemunitdir=lib/systemd/system
+    --with-systemdsystemunitdir=/lib/systemd/system
     --with-dev
     --with-drvpath=/${LIBDIR}/nut
     --with-group=nut
