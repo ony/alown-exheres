@@ -1,6 +1,0 @@
-# Copyright 2011 Wulf C. Krueger <philantrop@exherbo.org>
-# Distributed under the terms of the GNU General Public License v2
-
-require nut [ nut_drivers=[ serial usb snmp neon powerman ] ]
-
-PLATFORMS="~amd64 ~x86"
