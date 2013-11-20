@@ -30,8 +30,6 @@ LICENCES="GPL-2 GPL-3"
 SLOT="0"
 MYOPTIONS="
     bash-completion
-    cgi [[ description = [ Add CGI script support ] ]]
-    ipv6
     ssl
     tcpd
     nut_drivers: ${NUT_DRIVERS[*]}
@@ -40,7 +38,6 @@ MYOPTIONS="
 DEPENDENCIES="
     build+run:
         sys-apps/systemd
-        cgi? ( media-libs/gd[>=2.0.35] )
         ssl? ( dev-libs/openssl )
         tcpd? ( sys-apps/tcp-wrappers )
         user/nut
@@ -72,9 +69,6 @@ DEFAULT_SRC_CONFIGURE_PARAMS=(
 )
 
 DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(
-    cgi
-    "cgi cgipath /usr/share/nut/cgi"
-    ipv6
     ssl
     "tcpd wrap"
     "${NUT_DRIVERS[@]/#/nut_drivers:}"
@@ -122,13 +116,8 @@ nut_src_install() {
 
     option bash-completion && dobashcompletion "${WORK}"/scripts/misc/nut.bash_completion
 
-    if option cgi; then
-        edo chmod 0644 "${IMAGE}"/etc/nut/{{hosts,upsset}.conf,upsstats{,-single}.html}
-        edo chown root:root "${IMAGE}"/etc/nut/{{hosts,upsset}.conf,upsstats{,-single}.html}
-    else
-        edo rmdir "${IMAGE}"/usr/cgi-bin
-        edo rmdir "${IMAGE}"/usr/share/nut/html
-    fi
+    edo rmdir "${IMAGE}"/usr/cgi-bin
+    edo rmdir "${IMAGE}"/usr/share/nut/html
 
     edo find "${IMAGE}"/usr/share/man -type d -empty -delete
 }
