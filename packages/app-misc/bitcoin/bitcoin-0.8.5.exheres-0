@@ -1,0 +1,48 @@
+# Copyright 2013 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Bitcoin"
+DESCRIPTION="Bitcoin is a P2P distributed currency system"
+HOMEPAGE="http://bitcoin.org"
+
+#Can't use because they provide bitcoin-$PNV-linux.tar.gz,
+#which this script doesn't understand
+#require sourceforge
+
+DOWNLOADS="mirror://sourceforge/bitcoin/${PNV}-linux.tar.gz"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+BUGS_TO="ali@lown.me.uk"
+
+DEPENDENCIES="
+    build:
+    build+run:
+        dev-libs/boost
+        net-libs/miniupnpc
+        sys-libs/db
+        dev-libs/openssl
+"
+
+WORK="${WORKBASE}/${PNV}-linux/"
+ECONF_SOURCE="${WORKBASE}/${PNV}-linux/"
+
+src_compile()
+{
+    #Yes, this is correct
+    cd src/src
+    ln -s makefile.unix makefile
+
+    export BOOST_LIB_SUFFIX="-mt"
+
+    default
+}
+
+src_install()
+{
+    default
+
+    mkdir -p ${IMAGE}/usr/bin
+    cp src/src/bitcoind ${IMAGE}/usr/bin/
+}
