@@ -13,6 +13,8 @@ SLOT="0"
 PLATFORMS="~amd64"
 MYOPTIONS=""
 
+PREFIX="/usr"
+
 DEPENDENCIES="
     build:
     build+run:
