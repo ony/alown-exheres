@@ -1,0 +1,21 @@
+# Copyright 2014 Ali Lown
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="ndppd"
+DESCRIPTION="
+NDP proxy for IPV6 neighbor solicitation proxying over tunnels
+"
+HOMEPAGE="http://priv.nu/projects/ndppd"
+DOWNLOADS="http://priv.nu/projects/ndppd/files/${PNV}.tar.gz"
+
+LICENCES="GPL3"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+    build+run:
+"
+
+BUGS_TO="ali@lown.me.uk"
