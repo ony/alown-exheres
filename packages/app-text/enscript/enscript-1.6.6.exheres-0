@@ -8,7 +8,7 @@ or sends it directly to the printer. It includes features for 'pretty-printing' 
 code highlighting) in several programming languages.
 "
 HOMEPAGE="https://www.gnu.org/software/enscript/"
-DOWNLOADS="http://ftp.gnu.org/gnu/enscript/${PNV}.TAR.GZ"
+DOWNLOADS="http://ftp.gnu.org/gnu/enscript/${PNV}.tar.gz"
 
 LICENCES="GPL"
 SLOT="0"
