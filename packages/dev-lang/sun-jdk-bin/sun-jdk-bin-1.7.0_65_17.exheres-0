@@ -4,12 +4,16 @@
 SLOT="1.7"
 require java [ virtual_jdk_and_jre_deps=false ] java-jdk
 
+MY_VER=$(ever range 1-3)
+MY_VER_U=$(ever range 4)
+MY_VER_B=$(ever range 5)
+
 SUMMARY="Oracle Binary JDK"
 DESCRIPTION="
 Installs the Oracle provided JDK binaries
 "
 HOMEPAGE="http://www.oracle.com/technetwork/java/index.html"
-DOWNLOADS="http://download.oracle.com/otn-pub/java/jdk/7u9-b05/jdk-7u9-linux-x64.tar.gz"
+DOWNLOADS="http://download.oracle.com/otn-pub/java/jdk/7u${MY_VER_U}-b${MY_VER_B}/jdk-7u${MY_VER_U}-linux-x64.tar.gz"
 
 LICENCES="Oracle"
 PLATFORMS="~amd64"
@@ -27,7 +31,7 @@ DEFAULT_SRC_CONFIGURE_PARAMS=( )
 DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( )
 DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( )
 
-WORK="${WORKBASE}/jdk1.7.0_09"
+WORK="${WORKBASE}/jdk${MY_VER}_${MY_VER_U}"
 
 src_install() {
     local java_home="/usr/${LIBDIR}/${PN}"
